@@ -5,6 +5,52 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Code status colors -->
+    <color name="code_status_0">#000000</color>
+    <color name="code_status_1">#369E3A</color>
+    <color name="code_status_2">#FB291A</color>
+    <color name="code_status_3">#0585EB</color>
+    <color name="code_status_4">#FF5722</color>
+
+    <color name="colorPrimary">#FFFFFFFF</color>
+    <color name="colorSecondary">#F6F6F6</color>
+    <color name="fade_white">#F5F2F2</color>
+    <color name="white_transparent">#E6F7F7F7</color>
+
+    <color name="black">#FF000000</color>
+    <color name="lightBlack">#4A4A4A</color>
+    <color name="lightMediumBlack">#707070</color>
+    <color name="mediumBlack">#0C0C0C</color>
+
+    <color name="red">#bd060d</color>
+    <color name="lightRed">#E3696E</color>
+    <color name="mediumRed">#E91A22</color>
+    <color name="darkRed">#BD060D</color>
+    <color name="lightDarkRed">#B8040B</color>
+    <color name="mediumDarkRed">#ED1C24</color>
+
+    <color name="pink">#FFECED</color>
+    <color name="lightPink">#FFD2D2</color>
+    <color name="mediumPink">#F14950</color>
+    <color name="darkPink">#D7545A</color>
+
+    <color name="yellow">#F6FDB7</color>
+    <color name="lightYellow">#FFF6E4</color>
+    <color name="mediumYellow">#BAC003</color>
+    <color name="darkYellow">#CA953B</color>
+    <color name="darkMediumYellow">#FFCF37</color>
+
+    <color name="grey">#909090</color>
+    <color name="lightGrey">#D8D8D8</color>
+
+    <color name="green">#20AC4A</color>
+    <color name="lightGreen">#ECF9F2</color>
+    <color name="lightMediumGreen">#C4FBA0</color>
+    <color name="mediumGreen">#27957F</color>
+
+    <color name="sandal">#FFC6C8</color>
+    <color name="brown">#252525</color>
+    <color name="light_red">#E90808</color>
 </resources>

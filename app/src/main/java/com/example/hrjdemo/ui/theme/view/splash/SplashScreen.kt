@@ -27,7 +27,7 @@ fun SplashScreen(navController: NavController) {
         delay(2000)
 
         if (isLogedIn == true) {
-            navController.navigate(Navigation.Login.route) {
+            navController.navigate(Navigation.AccountSelection.route) {
                 popUpTo(Navigation.Splash.route) { inclusive = true }
             }
         } else {
