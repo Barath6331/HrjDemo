@@ -1,9 +1,5 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+package com.example.hrjdemo.ui.theme.view.loginRegister
 
-package com.example.hrjdemo.ui.theme.view.accountSelection
-
-import android.annotation.SuppressLint
-import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -13,10 +9,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
@@ -31,7 +29,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -43,19 +40,18 @@ import androidx.navigation.NavController
 import com.example.hrjdemo.R
 import com.example.hrjdemo.ui.theme.utils.Navigation
 
-@SuppressLint("ContextCastToActivity")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AccountSelection(navController: NavController) {
+fun LoginRegisterSelection(navController: NavController) {
 
-    val activity = LocalContext.current as Activity
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("") },
                 navigationIcon = {
-                        IconButton(onClick = { activity.finish()}) {
-                            Icon(
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(
                             imageVector = Icons.Default.KeyboardArrowLeft,
                             contentDescription = "Back"
                         )
@@ -76,104 +72,93 @@ fun AccountSelection(navController: NavController) {
                     .padding(padding)
                     .background(color = colorResource(R.color.white))
             ) {
+                Spacer(modifier = Modifier.height(35.dp))
+
                 Image(
                     painter = painterResource(R.drawable.johnson_logo),
                     contentDescription = "",
                     modifier = Modifier
-                        .padding(top = 35.dp, bottom = 30.dp)
+                        .padding(bottom = 25.dp)
                         .fillMaxWidth()
                         .height(80.dp)
                 )
             }
 
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(35.dp))
 
             Text(
-                text = "Select Your",
-                modifier = Modifier.padding(start = 25.dp),
-                style = TextStyle(
+                text = "Login/Create Your Account", style = TextStyle(
                     fontSize = 16.sp,
-                    color = colorResource(R.color.black),
-                    fontFamily = FontFamily(Font((R.font.avenirnextltpro_medium)))
-                )
+                    fontFamily = FontFamily(Font(R.font.avenirnextltpro_bold)),
+                    color = colorResource(R.color.black)
+                ),
+                modifier = Modifier.padding(start = 20.dp)
             )
 
-            Text(
-                text = "Customer Type",
-                modifier = Modifier.padding(start = 20.dp, top = 7.dp),
-                style = TextStyle(
-                    color = colorResource(R.color.black),
-                    fontSize = 23.sp,
-                    fontFamily = FontFamily(Font(R.font.avenirnextltpro_bold))
-                )
-            )
+            Spacer(modifier = Modifier.height(25.dp))
 
-            Spacer(modifier = Modifier.height(20.dp))
-
-            selectTab(R.drawable.plumber_icon, "I am a Plumber") {
-                navController.navigate(Navigation.LoginRegisterSelection.route)
+            commonFeild(R.drawable.login_icon, "Login") {
+                navController.navigate(Navigation.Login.route)
             }
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            selectTab(R.drawable.csm_icon, "I am a CSM") {
-                navController.navigate(Navigation.LoginRegisterSelection.route)
-            }
+            commonFeild(R.drawable.register_icon, "Register") {
 
-            Spacer(modifier = Modifier.height(10.dp))
-            selectTab(R.drawable.mason_icon, "I am a Mason/Contractor") {
-                navController.navigate(Navigation.LoginRegisterSelection.route)
             }
-
         }
+
     }
 }
 
 @Composable
-fun selectTab(image: Int, text: String, onClick: () -> Unit) {
+fun commonFeild(image: Int, text: String, onCLick: () -> Unit) {
     Box(
         modifier = Modifier
-            .height(65.dp)
             .fillMaxWidth()
+            .height(65.dp)
             .padding(start = 20.dp, end = 20.dp)
             .shadow(elevation = 6.dp, shape = RoundedCornerShape(10.dp))
+            .background(shape = RoundedCornerShape(10.dp), color = colorResource(R.color.white))
             .border(
                 width = 1.dp,
-                color = colorResource(R.color.lightRed),
-                shape = RoundedCornerShape(10.dp)
+                shape = RoundedCornerShape(10.dp),
+                color = colorResource(R.color.lightRed)
             )
-            .background(color = colorResource(R.color.white), shape = RoundedCornerShape(10.dp))
-            .clickable { onClick() }
+            .clickable {
+                onCLick()
+            }
     ) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxHeight()
+            ) {
+                Spacer(modifier = Modifier.width(10.dp))
+                Image(
+                    painter = painterResource(id = image),
+                    contentDescription = "",
+                    modifier = Modifier.size(55.dp)
+                )
 
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxHeight()) {
+                Text(
+                    text = text, style = TextStyle(
+                        fontSize = 15.sp,
+                        fontFamily = FontFamily(Font(R.font.avenirnextltpro_medium)),
+                        color = colorResource(R.color.black)
+                    ),
+                    modifier = Modifier.padding(start = 15.dp)
+                )
+            }
+
             Image(
-                painter = painterResource(id = image),
+                painter = painterResource(R.drawable.right_arrow),
                 contentDescription = "",
                 modifier = Modifier
-                    .size(55.dp)
-                    .padding(start = 10.dp)
-            )
-
-            Text(
-                text = text,
-                modifier = Modifier
-                    .padding(start = 10.dp),
-                style = TextStyle(
-                    fontSize = 15.sp,
-                    fontFamily = FontFamily(Font(R.font.avenirnextltpro_medium))
-                )
+                    .align(alignment = Alignment.CenterEnd)
+                    .height(20.dp)
+                    .padding(end = 20.dp)
             )
         }
-
-
-        Image(
-            painter = painterResource(R.drawable.right_arrow),
-            contentDescription = "",
-            modifier = Modifier
-                .height(20.dp)
-                .padding(end = 20.dp)
-                .align(Alignment.CenterEnd)
-        )
     }
 }

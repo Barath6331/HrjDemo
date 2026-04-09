@@ -10,8 +10,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.hrjdemo.ui.theme.HrjDemoTheme
 import com.example.hrjdemo.ui.theme.utils.Navigation
 import com.example.hrjdemo.ui.theme.view.Dashboard
-import com.example.hrjdemo.ui.theme.view.Login
+import com.example.hrjdemo.ui.theme.view.loginRegister.login.Login
 import com.example.hrjdemo.ui.theme.view.accountSelection.AccountSelection
+import com.example.hrjdemo.ui.theme.view.loginRegister.LoginRegisterSelection
 import com.example.hrjdemo.ui.theme.view.splash.SplashScreen
 
 class MainActivity : ComponentActivity() {
@@ -37,6 +38,10 @@ class MainActivity : ComponentActivity() {
 
                     composable(Navigation.AccountSelection.route) {
                         AccountSelection(navController)
+                    }
+
+                    composable(Navigation.LoginRegisterSelection.route) {
+                        LoginRegisterSelection(navController)
                     }
                 }
             }
