@@ -1,0 +1,380 @@
+package com.loyaltyworks.hrjohnson.model
+
+import androidx.room.Ignore
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+import java.io.Serializable
+
+/*Evoucher Request*/
+@JsonClass(generateAdapter = true)
+data class RedeemGiftRequest(
+    @Json(name = "ActionType")
+    var actionType: String? = null,
+    @Json(name = "ActorId")
+    var actorId: String? = null,
+    @Json(name = "ObjCatalogueDetails")
+    var objCatalogueDetails: ObjCatalogueDetailll? = null
+)
+
+@JsonClass(generateAdapter = true)
+data class ObjCatalogueDetailll(
+    @Json(name = "CatalogueType")
+    var catalogueType: String? = null,
+    @Json(name = "MerchantId")
+    var merchantId: String? = null
+)
+
+/*Evoucher Response*/
+@JsonClass(generateAdapter = true)
+data class RedeemGiftResponse(
+    @Json(name = "catalogueImageGallery")
+    var catalogueImageGallery: Any? = null,
+    @Json(name = "locationCites")
+    var locationCites: Any? = null,
+    @Json(name = "lstCatalogueProductAvailableCity")
+    var lstCatalogueProductAvailableCity: Any? = null,
+    @Json(name = "objCatalogueCategoryList")
+    var objCatalogueCategoryList: Any? = null,
+    @Json(name = "objCatalogueFixedPoints")
+    var objCatalogueFixedPoints: List<ObjCatalogueFixedPoint>? = null,
+    @Json(name = "objCatalogueList")
+    var objCatalogueList: List<ObjCatalogueListtt>? = null,
+    @Json(name = "objCatalogueRedemReqList")
+    var objCatalogueRedemReqList: Any? = null,
+    @Json(name = "objCustShippingAddressDetails")
+    var objCustShippingAddressDetails: Any? = null,
+    @Json(name = "objDreamProduct")
+    var objDreamProduct: Any? = null,
+    @Json(name = "returnMessage")
+    var returnMessage: Any? = null,
+    @Json(name = "returnValue")
+    var returnValue: Int? = null,
+    @Json(name = "totalRecords")
+    var totalRecords: Int? = null
+)
+
+@JsonClass(generateAdapter = true)
+data class ObjCatalogueFixedPoint(
+    @Json(name = "fixedPoints")
+    var fixedPoints: Int? = null,
+    @Json(name = "productCode")
+    var productCode: String? = null
+) : Serializable
+
+@JsonClass(generateAdapter = true)
+data class ObjCatalogueListtt(
+    @Json(name = "achievementDateDayWize")
+    var achievementDateDayWize: Any? = null,
+    @Json(name = "achievementDateMonthWize")
+    var achievementDateMonthWize: Any? = null,
+    @Json(name = "actionType")
+    var actionType: Int? = null,
+    @Json(name = "activeStatus")
+    var activeStatus: Boolean? = null,
+    @Json(name = "actorId")
+    var actorId: Int? = null,
+    @Json(name = "actorRole")
+    var actorRole: Any? = null,
+    @Json(name = "actualRedemptionDate")
+    var actualRedemptionDate: Any? = null,
+    @Json(name = "additionalRemarks")
+    var additionalRemarks: Any? = null,
+    @Json(name = "applicableTds")
+    var applicableTds: Double? = null,
+    @Json(name = "approverName")
+    var approverName: Any? = null,
+    @Json(name = "averageEarning")
+    var averageEarning: Any? = null,
+    @Json(name = "averageEarningPerMonth")
+    var averageEarningPerMonth: Any? = null,
+    @Json(name = "averageEarningperDay")
+    var averageEarningperDay: Any? = null,
+    @Json(name = "avgExpDate")
+    var avgExpDate: Any? = null,
+    @Json(name = "avgGreaterExpDate")
+    var avgGreaterExpDate: Any? = null,
+    @Json(name = "avgLesserExpDate")
+    var avgLesserExpDate: Any? = null,
+    @Json(name = "barcode")
+    var barcode: Any? = null,
+    @Json(name = "brandTermsAndConditions")
+    var brandTermsAndConditions: Any? = null,
+    @Json(name = "cashPerUnit")
+    var cashPerUnit: Int? = null,
+    @Json(name = "cashValue")
+    var cashValue: Int? = null,
+    @Json(name = "catalogueBrandCode")
+    var catalogueBrandCode: Any? = null,
+    @Json(name = "catalogueBrandDesc")
+    var catalogueBrandDesc: Any? = null,
+    @Json(name = "catalogueBrandId")
+    var catalogueBrandId: Int? = null,
+    @Json(name = "catalogueBrandName")
+    var catalogueBrandName: Any? = null,
+    @Json(name = "catalogueId")
+    var catalogueId: Int? = null,
+    @Json(name = "catalogueIdExist")
+    var catalogueIdExist: Int? = null,
+    @Json(name = "catalogueName")
+    var catalogueName: Int? = null,
+    @Json(name = "catalogueRedemptionIdExists")
+    var catalogueRedemptionIdExists: Int? = null,
+    @Json(name = "catalogueType")
+    var catalogueType: Int? = null,
+    @Json(name = "catalougeBrandName")
+    var catalougeBrandName: Any? = null,
+    @Json(name = "categoryID")
+    var categoryID: Int? = null,
+    @Json(name = "categoryName")
+    var categoryName: Any? = null,
+    @Json(name = "categoryParentID")
+    var categoryParentID: Int? = null,
+    @Json(name = "catogoryId")
+    var catogoryId: Int? = null,
+    @Json(name = "catogoryImage")
+    var catogoryImage: Any? = null,
+    @Json(name = "catogoryName")
+    var catogoryName: String? = null,
+    @Json(name = "color_Code")
+    var colorCode: Any? = null,
+    @Json(name = "color_Id")
+    var colorId: Int? = null,
+    @Json(name = "color_Name")
+    var colorName: Any? = null,
+    @Json(name = "commandName")
+    var commandName: Any? = null,
+    @Json(name = "comments")
+    var comments: Any? = null,
+    @Json(name = "countryCurrencyCode")
+    var countryCurrencyCode: Any? = null,
+    @Json(name = "countryID")
+    var countryID: Int? = null,
+    @Json(name = "createdBy")
+    var createdBy: Any? = null,
+    @Json(name = "createdDate")
+    var createdDate: Any? = null,
+    @Json(name = "customerCartId")
+    var customerCartId: Int? = null,
+    @Json(name = "dailyAvgCash")
+    var dailyAvgCash: Any? = null,
+    @Json(name = "daysRequiredToAchieveGoal")
+    var daysRequiredToAchieveGoal: Any? = null,
+    @Json(name = "deliveryType")
+    var deliveryType: String? = null,
+    @Json(name = "domainName")
+    var domainName: Any? = null,
+    @Json(name = "dreamGiftId")
+    var dreamGiftId: Int? = null,
+    @Json(name = "expectedDelivery")
+    var expectedDelivery: Any? = null,
+    @Json(name = "expiryDate")
+    var expiryDate: Any? = null,
+    @Json(name = "expiryOn")
+    var expiryOn: Int? = null,
+    @Json(name = "fromDate")
+    var fromDate: Any? = null,
+    @Json(name = "greaterAvgCash")
+    var greaterAvgCash: Any? = null,
+    @Json(name = "hasPartialPayment")
+    var hasPartialPayment: Boolean? = null,
+    @Json(name = "isActive")
+    var isActive: Boolean? = null,
+    @Json(name = "isAddPlanner")
+    var isAddPlanner: Boolean? = null,
+    @Json(name = "isApproved")
+    var isApproved: Boolean? = null,
+    @Json(name = "is_CartRedeemable")
+    var isCartRedeemable: Int? = null,
+    @Json(name = "isCash")
+    var isCash: Boolean? = null,
+    @Json(name = "isPlanner")
+    var isPlanner: Boolean? = null,
+    @Json(name = "isPopularCount")
+    var isPopularCount: Int? = null,
+    @Json(name = "is_Redeemable")
+    var isRedeemable: Int? = null,
+    @Json(name = "jFromDate")
+    var jFromDate: Any? = null,
+    @Json(name = "jRedemptionDate")
+    var jRedemptionDate: Any? = null,
+    @Json(name = "jToDate")
+    var jToDate: Any? = null,
+    @Json(name = "lesserAvgCash")
+    var lesserAvgCash: Any? = null,
+    @Json(name = "locationId")
+    var locationId: Int? = null,
+    @Json(name = "loyaltyId")
+    var loyaltyId: Any? = null,
+    @Json(name = "max_points")
+    var maxPoints: String? = null,
+    @Json(name = "memberName")
+    var memberName: Any? = null,
+    @Json(name = "merchantId")
+    var merchantId: Int? = null,
+    @Json(name = "merchantName")
+    var merchantName: String? = null,
+    @Json(name = "min_points")
+    var minPoints: String? = null,
+    @Json(name = "minimumStockQunty")
+    var minimumStockQunty: Int? = null,
+    @Json(name = "mobile")
+    var mobile: Any? = null,
+    @Json(name = "modelId")
+    var modelId: Int? = null,
+    @Json(name = "modelName")
+    var modelName: Any? = null,
+    @Json(name = "monthsRequiredToAchieveGoal")
+    var monthsRequiredToAchieveGoal: Any? = null,
+    @Json(name = "mrp")
+    var mrp: Any? = null,
+    @Json(name = "msqa")
+    var msqa: Int? = null,
+    @Json(name = "multipleRedIds")
+    var multipleRedIds: Any? = null,
+    @Json(name = "noOfCartQuantity")
+    var noOfCartQuantity: Int? = null,
+    @Json(name = "noOfPointsDebit")
+    var noOfPointsDebit: Double? = null,
+    @Json(name = "noOfQuantity")
+    var noOfQuantity: Int? = null,
+    @Json(name = "partialPaymentCash")
+    var partialPaymentCash: Int? = null,
+    @Json(name = "plannerStatus")
+    var plannerStatus: Any? = null,
+    @Json(name = "pointBalance")
+    var pointBalance: Double? = null,
+    @Json(name = "pointRedem")
+    var pointRedem: Int? = null,
+    @Json(name = "pointReqToAcheiveProduct")
+    var pointReqToAcheiveProduct: Int? = null,
+    @Json(name = "pointsPerUnit")
+    var pointsPerUnit: Int? = null,
+    @Json(name = "pointsRequired")
+    var pointsRequired: Int? = null,
+    @Json(name = "productCode")
+    var productCode: String? = null,
+    @Json(name = "productDesc")
+    var productDesc: String? = null,
+    @Json(name = "productImage")
+    var productImage: String? = null,
+    @Json(name = "productImageServerPath")
+    var productImageServerPath: Any? = null,
+    @Json(name = "productName")
+    var productName: String? = null,
+    @Json(name = "product_type")
+    var productType: Int? = null,
+    @Json(name = "proposedTDS")
+    var proposedTDS: Double? = null,
+    @Json(name = "redeemableAverageEarning")
+    var redeemableAverageEarning: Any? = null,
+    @Json(name = "redeemableAverageEarning12")
+    var redeemableAverageEarning12: Int? = null,
+    @Json(name = "redeemableAverageEarning6")
+    var redeemableAverageEarning6: Int? = null,
+    @Json(name = "redeemableEncashBalance")
+    var redeemableEncashBalance: Int? = null,
+    @Json(name = "redeemablePointBalance")
+    var redeemablePointBalance: Double? = null,
+    @Json(name = "redeemedCatalogueType")
+    var redeemedCatalogueType: Any? = null,
+    @Json(name = "redemptionDate")
+    var redemptionDate: Any? = null,
+    @Json(name = "redemptionId")
+    var redemptionId: Int? = null,
+    @Json(name = "redemptionPlannerId")
+    var redemptionPlannerId: Int? = null,
+    @Json(name = "redemptionRefno")
+    var redemptionRefno: Any? = null,
+    @Json(name = "redemptionStatus")
+    var redemptionStatus: Any? = null,
+    @Json(name = "redemptionTypeId")
+    var redemptionTypeId: Int? = null,
+    @Json(name = "result")
+    var result: Int? = null,
+    @Json(name = "schemeId")
+    var schemeId: Int? = null,
+    @Json(name = "segmentDetails")
+    var segmentDetails: Any? = null,
+    @Json(name = "selectedStatus")
+    var selectedStatus: Int? = null,
+    @Json(name = "status")
+    var status: Int? = null,
+    @Json(name = "subCategoryID")
+    var subCategoryID: Int? = null,
+    @Json(name = "subCategoryName")
+    var subCategoryName: Any? = null,
+    @Json(name = "sumOfRedeemableWithTDS")
+    var sumOfRedeemableWithTDS: Double? = null,
+    @Json(name = "sumOfTotalPointsRequired")
+    var sumOfTotalPointsRequired: Double? = null,
+    @Json(name = "tdsPercentage")
+    var tdsPercentage: Int? = null,
+    @Json(name = "tdsProcessStatus")
+    var tdsProcessStatus: Any? = null,
+    @Json(name = "termsCondition")
+    var termsCondition: Any? = null,
+    @Json(name = "toDate")
+    var toDate: Any? = null,
+    @Json(name = "token")
+    var token: Any? = null,
+    @Json(name = "totalCash")
+    var totalCash: Int? = null,
+    @Json(name = "tdsRule")
+    var tdsRule: Int? = null,
+    @Json(name = "total_Row")
+    var totalRow: Int? = null,
+    @Json(name = "userAccess")
+    var userAccess: Int? = null,
+    @Json(name = "vendorId")
+    var vendorId: Int? = null,
+    @Json(name = "vendorName")
+    var vendorName: String? = null,
+    @Ignore var objCatalogueFixedPoints: List<ObjCatalogueFixedPoint>? = null
+) : Serializable
+
+
+/*RedeemGiftVoucher Request*/
+@JsonClass(generateAdapter = true)
+data class RedeemGiftVoucherRequest(
+    var ActionType: String? = null,
+    var ActorId: String? = null,
+    var CountryCode: String? = null,
+    var CountryID: String? = null,
+    var MerchantId: String? = null,
+    var ObjCatalogueList: List<ObjCatalogueListss>? = null,
+    var ReceiverEmail: String? = null,
+    var ReceiverName: String? = null,
+    var ReceiverMobile: String? = null,
+    var SourceMode: String? = null
+)
+
+@JsonClass(generateAdapter = true)
+data class ObjCatalogueListss(
+    var CatalogueId: Int? = null,
+    var CountryCurrencyCode: String? = null,
+    var Address1: String? = null,
+    var DeliveryType: String? = null,
+    var HasPartialPayment: Boolean? = null,
+    var NoOfPointsDebit: Int? = null,
+    var PointsRequired: Float? = null,
+    var ProductCode: String? = null,
+    var ProductImage: String? = null,
+    var ProductName: String? = null,
+    var JRedemptionDate: String? = null,
+    var RedemptionId: Int? = null,
+    var RedemptionTypeId: Int? = null,
+    var NoOfQuantity: Int? = null,
+    var Status: Int? = null,
+    var VendorId: Int? = null,
+    var VendorName: String? = null
+)
+
+/*RedeemGiftVoucherResponse*/
+@JsonClass(generateAdapter = true)
+data class RedeemGiftVoucherResponse(
+    var returnMessage: String? = null,
+    var returnValue: Int? = null,
+    var totalRecords: Int? = null
+)
+
+

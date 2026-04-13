@@ -1,0 +1,690 @@
+package com.loyaltyworks.hrjohnson.model
+
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+import java.io.Serializable
+
+/*Deactivate active Request */
+
+@JsonClass(generateAdapter = true)
+data class UserActiveOrInActiveRequest(
+    var userid: String? = null
+)
+
+@JsonClass(generateAdapter = true)
+data class UserActiveOrInActiveResponse(
+    var ReturnMessage: Any? = null,
+    var ReturnValue: Int? = null,
+    var TotalRecords: Int? = null,
+    var IsActive: Boolean
+)
+
+@JsonClass(generateAdapter = true)
+data class UpdatedDashboardSingleApiRequest(
+    val ActorId: String? = null,
+    val AlbumCategoryID: String? = null
+)
+
+
+@JsonClass(generateAdapter = true)
+data class UpdatedDashboardSingleApiResponse(
+    @Json(name = "activeStatus")
+    val activeStatus: Boolean? = null,
+    @Json(name = "deviceID")
+    val deviceID: Any? = null,
+    @Json(name = "lastActivatedDate")
+    val lastActivatedDate: String? = null,
+    @Json(name = "lstCustomerFeedBackJsonApi")
+    val lstCustomerFeedBackJsonApi: List<LstCustomerFeedBackJsonApi>? = null,
+    @Json(name = "lstLoyaltyProgramReport")
+    val lstLoyaltyProgramReport: List<LstLoyaltyProgramReport>? = null,
+    @Json(name = "lstPromotionListJsonApi")
+    val lstPromotionListJsonApi: List<LstPromotionJsonApi>? = null,
+    @Json(name = "lstUserDashboardDetails")
+    val lstUserDashboardDetails: Any? = null,
+    @Json(name = "objActivityDetailsJsonList")
+    val objActivityDetailsJsonList: List<ObjActivityDetailsJson>? = null,
+    @Json(name = "objActivityDetailsList")
+    val objActivityDetailsList: Any? = null,
+    @Json(name = "objCatalogueDetailsForCustomer")
+    val objCatalogueDetailsForCustomer: List<ObjCatalogueDetailsForCustomer>? = null,
+    @Json(name = "objCustomerDashboardList")
+    val objCustomerDashboardList: List<ObjCustomerDashboard>? = null,
+    @Json(name = "objCustomerDashboardMenuList")
+    val objCustomerDashboardMenuList: Any? = null,
+    @Json(name = "objGamificationTransaction")
+    val objGamificationTransaction: Any? = null,
+    @Json(name = "objImageGalleryList")
+    val objImageGalleryList: Any? = null,
+    @Json(name = "objProductList")
+    val objProductList: Any? = null,
+    @Json(name = "returnMessage")
+    val returnMessage: Any? = null,
+    @Json(name = "returnValue")
+    val returnValue: Int? = null,
+    @Json(name = "totalRecords")
+    val totalRecords: Int? = null
+)
+
+@JsonClass(generateAdapter = true)
+data class ObjCatalogueDetailsForCustomer(
+    @Json(name = "catalogueId")
+    val catalogueId: Int? = null,
+    @Json(name = "catalogueImage")
+    val catalogueImage: Any? = null,
+    @Json(name = "catalogueName")
+    val catalogueName: String? = null,
+    @Json(name = "pointsBalance")
+    val pointsBalance: Int? = null,
+    @Json(name = "pointsRequired")
+    val pointsRequired: Int? = null,
+    @Json(name = "pointsRequiredToRedeem")
+    val pointsRequiredToRedeem: Int? = null,
+    @Json(name = "redemptionType")
+    val redemptionType: Int? = null
+)
+
+@JsonClass(generateAdapter = true)
+data class LstCustomerFeedBackJsonApi(
+    @Json(name = "absent_Count")
+    val absentCount: Int? = null,
+    @Json(name = "address")
+    val address: Any? = null,
+    @Json(name = "addressTypeVerified")
+    val addressTypeVerified: Boolean? = null,
+    @Json(name = "allowPlanner")
+    val allowPlanner: Boolean? = null,
+    @Json(name = "attendanceDate")
+    val attendanceDate: Any? = null,
+    @Json(name = "bonusDate")
+    val bonusDate: Any? = null,
+    @Json(name = "bonusName")
+    val bonusName: Any? = null,
+    @Json(name = "bonusValue")
+    val bonusValue: Any? = null,
+    @Json(name = "callRemarks")
+    val callRemarks: Any? = null,
+    @Json(name = "callStatusId")
+    val callStatusId: Int? = null,
+    @Json(name = "cashBack")
+    val cashBack: Int? = null,
+    @Json(name = "company")
+    val company: Any? = null,
+    @Json(name = "customerCartCount")
+    val customerCartCount: Int? = null,
+    @Json(name = "customerEmail")
+    val customerEmail: String? = null,
+    @Json(name = "customerGrade")
+    val customerGrade: String? = null,
+    @Json(name = "customerId")
+    val customerId: Int? = null,
+    @Json(name = "customerImage")
+    val customerImage: String? = null,
+    @Json(name = "customerMobile")
+    val customerMobile: String? = null,
+    @Json(name = "customerRelation")
+    val customerRelation: Any? = null,
+    @Json(name = "customerStatus")
+    val customerStatus: Int? = null,
+    @Json(name = "customerType")
+    val customerType: String? = null,
+    @Json(name = "customerTypeId")
+    val customerTypeId: Int? = null,
+    @Json(name = "designation")
+    val designation: Any? = null,
+    @Json(name = "district")
+    val district: String? = null,
+    @Json(name = "encashBalance")
+    val encashBalance: Int? = null,
+    @Json(name = "firstName")
+    val firstName: String? = null,
+    @Json(name = "identificationTypeVerified")
+    val identificationTypeVerified: Boolean? = null,
+    @Json(name = "insuranceExpiredDate")
+    val insuranceExpiredDate: Any? = null,
+    @Json(name = "insuranceReferanceId")
+    val insuranceReferanceId: Any? = null,
+    @Json(name = "isBlacklisted")
+    val isBlacklisted: Int? = null,
+    @Json(name = "isDormant")
+    val isDormant: Int? = null,
+    @Json(name = "isOnHold")
+    val isOnHold: Int? = null,
+    @Json(name = "issueDescription")
+    val issueDescription: Any? = null,
+    @Json(name = "is_delete")
+    val is_delete: Int? = null,
+    @Json(name = "languageId")
+    val languageId: Int? = null,
+    @Json(name = "languageName")
+    val languageName: Any? = null,
+    @Json(name = "lastActive")
+    val lastActive: Any? = null,
+    @Json(name = "lastName")
+    val lastName: Any? = null,
+    @Json(name = "locationId")
+    val locationId: Int? = null,
+    @Json(name = "locationName")
+    val locationName: Any? = null,
+    @Json(name = "loyaltyId")
+    val loyaltyId: String? = null,
+    @Json(name = "loyaltyIdQRCode")
+    val loyaltyIdQRCode: Any? = null,
+    @Json(name = "merchantEmail")
+    val merchantEmail: String? = null,
+    @Json(name = "merchantId")
+    val merchantId: Int? = null,
+    @Json(name = "merchantMobile")
+    val merchantMobile: Any? = null,
+    @Json(name = "merchantname")
+    val merchantname: String? = null,
+    @Json(name = "month_Name")
+    val monthName: Any? = null,
+    @Json(name = "month_No")
+    val monthNo: Int? = null,
+    @Json(name = "nativeStateId")
+    val nativeStateId: Int? = null,
+    @Json(name = "nativeStateName")
+    val nativeStateName: Any? = null,
+    @Json(name = "nominee")
+    val nominee: Any? = null,
+    @Json(name = "nomineeDOB")
+    val nomineeDOB: Any? = null,
+    @Json(name = "ownerName")
+    val ownerName: Any? = null,
+    @Json(name = "password")
+    val password: String? = null,
+    @Json(name = "pinStatus")
+    val pinStatus: Int? = null,
+    @Json(name = "prefferedDealer")
+    var prefferedDealer: String? = null,
+    @Json(name = "prefix")
+    val prefix: Any? = null,
+    @Json(name = "present")
+    val present: Boolean? = null,
+    @Json(name = "present_Count")
+    val presentCount: Int? = null,
+    @Json(name = "profilePicture")
+    val profilePicture: Any? = null,
+    @Json(name = "referralCode")
+    val referralCode: String? = null,
+    @Json(name = "requiredPoints")
+    val requiredPoints: Int? = null,
+    @Json(name = "skuMaxPrice")
+    val skuMaxPrice: Int? = null,
+    @Json(name = "skuMinPrice")
+    val skuMinPrice: Int? = null,
+    @Json(name = "storeName")
+    val storeName: Any? = null,
+    @Json(name = "tardy")
+    val tardy: Boolean? = null,
+    @Json(name = "tardy_Count")
+    val tardyCount: Int? = null,
+    @Json(name = "targetAchieved")
+    val targetAchieved: String? = null,
+    @Json(name = "title")
+    val title: Any? = null,
+    @Json(name = "userId")
+    val userId: Int? = null,
+    @Json(name = "verificationStatus")
+    val verificationStatus: Any? = null,
+    @Json(name = "verifiedStatus")
+    val verifiedStatus: Int? = null,
+    @Json(name = "walletNumber")
+    val walletNumber: Any? = null
+)
+
+@JsonClass(generateAdapter = true)
+data class LstLoyaltyProgramReport(
+    @Json(name = "accountStatus")
+    val accountStatus: Any? = null,
+    @Json(name = "amount")
+    val amount: Int? = null,
+    @Json(name = "authenticityCardImgPath")
+    val authenticityCardImgPath: Any? = null,
+    @Json(name = "brandName")
+    val brandName: Any? = null,
+    @Json(name = "currencyName")
+    val currencyName: Any? = null,
+    @Json(name = "customerGrade")
+    val customerGrade: Any? = null,
+    @Json(name = "customerType")
+    val customerType: Any? = null,
+    @Json(name = "discount")
+    val discount: Int? = null,
+    @Json(name = "grandTotalAmount")
+    val grandTotalAmount: Int? = null,
+    @Json(name = "grandTotalAwarded")
+    val grandTotalAwarded: Int? = null,
+    @Json(name = "grandTotalRedemed")
+    val grandTotalRedemed: Int? = null,
+    @Json(name = "id")
+    val iD: Int? = null,
+    @Json(name = "invoiceNo")
+    val invoiceNo: Any? = null,
+    @Json(name = "isProgramValid")
+    val isProgramValid: Int? = null,
+    @Json(name = "jTransactionDate")
+    val jTransactionDate: Any? = null,
+    @Json(name = "locationID")
+    val locationID: Int? = null,
+    @Json(name = "locationName")
+    val locationName: Any? = null,
+    @Json(name = "locationUserID")
+    val locationUserID: Int? = null,
+    @Json(name = "loyalityID")
+    val loyalityID: Any? = null,
+    @Json(name = "ltyTranTempId")
+    val ltyTranTempId: Int? = null,
+    @Json(name = "memberCount")
+    val memberCount: Int? = null,
+    @Json(name = "membershipName")
+    val membershipName: Any? = null,
+    @Json(name = "merchantName")
+    val merchantName: Any? = null,
+    @Json(name = "merchantUserId")
+    val merchantUserId: Int? = null,
+    @Json(name = "name")
+    val name: Any? = null,
+    @Json(name = "noOfAwardTrxn")
+    val noOfAwardTrxn: Int? = null,
+    @Json(name = "noOfNotAwardTrxn")
+    val noOfNotAwardTrxn: Int? = null,
+    @Json(name = "noofTrans")
+    val noofTrans: Int? = null,
+    @Json(name = "productCode")
+    val productCode: Any? = null,
+    @Json(name = "productName")
+    val productName: Any? = null,
+    @Json(name = "programDesc")
+    val programDesc: Any? = null,
+    @Json(name = "programID")
+    val programID: Int? = null,
+    @Json(name = "programName")
+    val programName: Any? = null,
+    @Json(name = "programStartDate")
+    val programStartDate: Any? = null,
+    @Json(name = "quantity")
+    val quantity: Int? = null,
+    @Json(name = "remarks")
+    val remarks: Any? = null,
+    @Json(name = "rewardCurrency")
+    val rewardCurrency: Any? = null,
+    @Json(name = "rewardCurrencyID")
+    val rewardCurrencyID: Int? = null,
+    @Json(name = "rewardDebited")
+    val rewardDebited: Int? = null,
+    @Json(name = "rewardGiven")
+    val rewardGiven: Int? = null,
+    @Json(name = "rewardQty")
+    val rewardQty: Int? = null,
+    @Json(name = "salesReturn")
+    val salesReturn: Int? = null,
+    @Json(name = "serialNo")
+    val serialNo: Any? = null,
+    @Json(name = "status")
+    val status: Boolean? = null,
+    @Json(name = "totAmt")
+    val totAmt: Int? = null,
+    @Json(name = "totAward")
+    val totAward: Int? = null,
+    @Json(name = "totDeebit")
+    val totDeebit: Int? = null,
+    @Json(name = "totSalesReturn")
+    val totSalesReturn: Int? = null,
+    @Json(name = "totalAmount")
+    val totalAmount: Int? = null,
+    @Json(name = "totalAwarded")
+    val totalAwarded: Int? = null,
+    @Json(name = "transactionDate")
+    val transactionDate: Any? = null,
+    @Json(name = "transactionType")
+    val transactionType: Any? = null,
+    @Json(name = "txnsDate")
+    val txnsDate: Any? = null,
+    @Json(name = "verificationStatus")
+    val verificationStatus: Any? = null
+)
+
+@JsonClass(generateAdapter = true)
+data class LstPromotionJsonApi(
+    @Json(name = "actionUrl")
+    val actionUrl: Any? = null,
+    @Json(name = "albumImageID")
+    val albumImageID: Int? = null,
+    @Json(name = "allowUnReserve")
+    val allowUnReserve: Boolean? = null,
+    @Json(name = "approvalStatus")
+    val approvalStatus: Any? = null,
+    @Json(name = "approvalStatusID")
+    val approvalStatusID: Int? = null,
+    @Json(name = "canClaim")
+    val canClaim: Boolean? = null,
+    @Json(name = "canComment")
+    val canComment: Boolean? = null,
+    @Json(name = "canReverse")
+    val canReverse: Boolean? = null,
+    @Json(name = "canView")
+    val canView: Boolean? = null,
+    @Json(name = "categoryId")
+    val categoryId: Int? = null,
+    @Json(name = "categoryName")
+    val categoryName: Any? = null,
+    @Json(name = "claim")
+    val claim: Any? = null,
+    @Json(name = "cliamIdUsageStatus")
+    val cliamIdUsageStatus: Boolean? = null,
+    @Json(name = "comment")
+    val comment: Any? = null,
+    @Json(name = "emailID")
+    val emailID: Any? = null,
+    @Json(name = "firstName")
+    val firstName: Any? = null,
+    @Json(name = "footer")
+    val footer: String? = null,
+    @Json(name = "fullName")
+    val fullName: Any? = null,
+    @Json(name = "is_Active")
+    val isActive: Boolean? = null,
+    @Json(name = "isApprovable")
+    val isApprovable: Boolean? = null,
+    @Json(name = "isClaimed")
+    val isClaimed: Boolean? = null,
+    @Json(name = "is_Expired")
+    val isExpired: Boolean? = null,
+    @Json(name = "isReservable")
+    val isReservable: Boolean? = null,
+    @Json(name = "isReserved")
+    val isReserved: Boolean? = null,
+    @Json(name = "lastName")
+    val lastName: Any? = null,
+    @Json(name = "memberId")
+    val memberId: Any? = null,
+    @Json(name = "memberName")
+    val memberName: Any? = null,
+    @Json(name = "mobileNo")
+    val mobileNo: Any? = null,
+    @Json(name = "outletName")
+    val outletName: Any? = null,
+    @Json(name = "pointBalance")
+    val pointBalance: Int? = null,
+    @Json(name = "proImage")
+    val proImage: String? = null,
+    @Json(name = "proLongDesc")
+    val proLongDesc: String? = null,
+    @Json(name = "proShortDesc")
+    val proShortDesc: Any? = null,
+    @Json(name = "promotionId")
+    val promotionId: Int? = null,
+    @Json(name = "promotionName")
+    val promotionName: String? = null,
+    @Json(name = "promotion_Type")
+    val promotionType: Int? = null,
+    @Json(name = "promotionTypeName")
+    val promotionTypeName: Any? = null,
+    @Json(name = "pushUserActionID")
+    val pushUserActionID: Int? = null,
+    @Json(name = "redeemLocationAll")
+    val redeemLocationAll: Boolean? = null,
+    @Json(name = "remarks")
+    val remarks: Any? = null,
+    @Json(name = "reserve")
+    val reserve: Any? = null,
+    @Json(name = "targetCustomers")
+    val targetCustomers: Int? = null,
+    @Json(name = "title")
+    val title: Any? = null,
+    @Json(name = "totalBlocks")
+    val totalBlocks: Int? = null,
+    @Json(name = "totalClaims")
+    val totalClaims: Int? = null,
+    @Json(name = "totalComment")
+    val totalComment: Int? = null,
+    @Json(name = "totalRecords")
+    val totalRecords: Int? = null,
+    @Json(name = "totalResponses")
+    val totalResponses: Int? = null,
+    @Json(name = "totalViews")
+    val totalViews: Int? = null,
+    @Json(name = "url")
+    val url: Any? = null,
+    @Json(name = "validFrom")
+    val validFrom: String? = null,
+    @Json(name = "validTo")
+    val validTo: String? = null,
+    @Json(name = "validity")
+    val validity: Any? = null,
+    @Json(name = "view")
+    val view: Any? = null,
+    @Json(name = "views")
+    val views: Int? = null
+)
+
+@JsonClass(generateAdapter = true)
+data class ObjActivityDetailsJson(
+    @Json(name = "actionType")
+    val actionType: Int? = null,
+    @Json(name = "activityDate")
+    val activityDate: Any? = null,
+    @Json(name = "actorId")
+    val actorId: Int? = null,
+    @Json(name = "actorRole")
+    val actorRole: Any? = null,
+    @Json(name = "isActive")
+    val isActive: Boolean? = null,
+    @Json(name = "jActivityDate")
+    val jActivityDate: String? = null,
+    @Json(name = "message")
+    val message: Any? = null,
+    @Json(name = "name")
+    val name: String? = null,
+    @Json(name = "type")
+    val type: String? = null
+)
+
+@JsonClass(generateAdapter = true)
+data class ObjCustomerDashboard(
+    @Json(name = "accessedDate")
+    val accessedDate: Any? = null,
+    @Json(name = "actionType")
+    val actionType: Int? = null,
+    @Json(name = "actorId")
+    val actorId: Int? = null,
+    @Json(name = "actorRole")
+    val actorRole: Any? = null,
+    @Json(name = "approvedClaimCount")
+    val approvedClaimCount: Int? = null,
+    @Json(name = "bdeUserMobile")
+    val bDEUserMobile: Any? = null,
+    @Json(name = "bdeUserName")
+    val bDEUserName: Any? = null,
+    @Json(name = "behaviourImage")
+    val behaviourImage: Any? = null,
+    @Json(name = "behaviourWisePoints")
+    val behaviourWisePoints: Int? = null,
+    @Json(name = "cashBackEligibility")
+    val cashBackEligibility: Int? = null,
+    @Json(name = "cashBackType")
+    val cashBackType: Any? = null,
+    @Json(name = "convertedCurrencyValue")
+    val convertedCurrencyValue: Int? = null,
+    @Json(name = "createdBy")
+    val createdBy: Int? = null,
+    @Json(name = "createdDate")
+    val createdDate: Any? = null,
+    @Json(name = "customerBonusCampaignStatus")
+    val customerBonusCampaignStatus: Boolean? = null,
+    @Json(name = "customerCartCount")
+    val customerCartCount: Int? = null,
+    @Json(name = "customerCredit")
+    val customerCredit: Int? = null,
+    @Json(name = "customerGrade")
+    val customerGrade: Any? = null,
+    @Json(name = "customerId")
+    val customerId: Int? = null,
+    @Json(name = "customerOrderStatusId")
+    val customerOrderStatusId: Int? = null,
+    @Json(name = "customerPendingGamesCount")
+    val customerPendingGamesCount: Int? = null,
+    @Json(name = "customerRaffleCount")
+    val customerRaffleCount: Int? = null,
+    @Json(name = "customerType")
+    val customerType: Any? = null,
+    @Json(name = "customerVerifiedStatus")
+    val customerVerifiedStatus: Boolean? = null,
+    @Json(name = "feedBackSurveyId")
+    val feedBackSurveyId: Int? = null,
+    @Json(name = "giftDonateCount")
+    val giftDonateCount: Int? = null,
+    @Json(name = "giftEvoucherCount")
+    val giftEvoucherCount: Int? = null,
+    @Json(name = "giftingEvoucherCount")
+    val giftingEvoucherCount: Int? = null,
+    @Json(name = "identityProofsNotification")
+    val identityProofsNotification: Int? = null,
+    @Json(name = "isActive")
+    val isActive: Boolean? = null,
+    @Json(name = "isFeedBackGave")
+    val isFeedBackGave: Boolean? = null,
+    @Json(name = "isNotionalPoints")
+    val isNotionalPoints: Int? = null,
+    @Json(name = "lifeTimeEarningsAchi")
+    val lifeTimeEarningsAchi: String? = null,
+    @Json(name = "lifeTimeEarningsDamages")
+    val lifeTimeEarningsDamages: String? = null,
+    @Json(name = "lifeTimeEarningsDue")
+    val lifeTimeEarningsDue: String? = null,
+    @Json(name = "lifeTimeEarningsMissed")
+    val lifeTimeEarningsMissed: String? = null,
+    @Json(name = "lifeTimeEarningsOppor")
+    val lifeTimeEarningsOppor: String? = null,
+    @Json(name = "mappedBalance")
+    val mappedBalance: Any? = null,
+    @Json(name = "mappedType")
+    val mappedType: Any? = null,
+    @Json(name = "mappedUserMobile")
+    val mappedUserMobile: Any? = null,
+    @Json(name = "mappedUserName")
+    val mappedUserName: Any? = null,
+    @Json(name = "memberSince")
+    val memberSince: String? = null,
+    @Json(name = "messageCount")
+    val messageCount: Int? = null,
+    @Json(name = "name")
+    val name: Any? = null,
+    @Json(name = "nextTeirUpgradeMessage")
+    val nextTeirUpgradeMessage: Any? = null,
+    @Json(name = "notificationCount")
+    val notificationCount: Int? = null,
+    @Json(name = "objActivityDetailsList")
+    val objActivityDetailsList: Any? = null,
+    @Json(name = "objPromotionCommonList")
+    val objPromotionCommonList: Any? = null,
+    @Json(name = "overAllPoints")
+    val overAllPoints: Int? = null,
+    @Json(name = "pointExpiryCount")
+    val pointExpiryCount: Int? = null,
+    @Json(name = "profileImage")
+    val profileImage: Any? = null,
+    @Json(name = "programBehaviour")
+    val programBehaviour: Any? = null,
+    @Json(name = "programBehaviourId")
+    val programBehaviourId: Int? = null,
+    @Json(name = "qR_Code")
+    val qRCode: Any? = null,
+    @Json(name = "redeemPoints")
+    val redeemPoints: Int? = null,
+    @Json(name = "redeemableEncashBalance")
+    val redeemableEncashBalance: Int? = null,
+    @Json(name = "redeemablePointsBalance")
+    val redeemablePointsBalance: Int? = null,
+    @Json(name = "referralBonusPoints")
+    val referralBonusPoints: Int? = null,
+    @Json(name = "referralCount")
+    val referralCount: Int? = null,
+    @Json(name = "retailerId")
+    val retailerId: Int? = null,
+    @Json(name = "subscriberCount")
+    val subscriberCount: Int? = null,
+    @Json(name = "teirUpgradeMessage")
+    val teirUpgradeMessage: Any? = null,
+    @Json(name = "totalRedeemed")
+    val totalRedeemed: Int? = null,
+    @Json(name = "totalRows")
+    val totalRows: Int? = null,
+    @Json(name = "verificationStatus")
+    val verificationStatus: Int? = null,
+    @Json(name = "warningCount")
+    val warningCount: Int? = null,
+    @Json(name = "bankStatus")
+    val bankStatus: String? = null ,
+    @Json(name = "kycStatus")
+    val kycStatus: String? = null ,
+    @Json(name = "otherProof")
+    val otherProof: String? = null ,
+    @Json(name = "paN_Status")
+    val paN_Status: String? = null ,
+    @Json(name = "totalAmountRedeemed")
+    val totalAmountRedeemed: String? = null,
+    @Json(name = "overAllPointsEarned")
+    val overAllPointsEarned: String? = null,
+    @Json(name = "percentageMessage")
+    val percentageMessage: String? = null,
+)
+
+
+@JsonClass(generateAdapter = true)
+data class CategoryListRequest(
+    @Json(name = "ActionType")
+    val actionType: String? = null,
+    @Json(name = "ActorId")
+    val actorId: String? = null
+)
+
+@JsonClass(generateAdapter = true)
+data class CategoryListResponse(
+    @Json(name = "lstAttributesDetails")
+    val lstAttributesDetails: List<LstAttributesDetailss>? = null
+)
+
+@JsonClass(generateAdapter = true)
+data class LstAttributesDetailss(
+    @Json(name = "attributeContents")
+    val attributeContents: Any? = null,
+    @Json(name = "attributeId")
+    val attributeId: Int? = null,
+    @Json(name = "attributeType")
+    val attributeType: String? = null,
+    @Json(name = "attributeValue")
+    val attributeValue: String? = null
+) : Serializable
+
+/* Banner image request */
+@JsonClass(generateAdapter = true)
+data class BannerImageRequest(
+    val ObjImageGallery: ObjImageGallery
+)
+
+@JsonClass(generateAdapter = true)
+data class ObjImageGallery(
+    val AlbumCategoryID: String,
+    val ActorId: String
+)
+
+/* Banner image response */
+@JsonClass(generateAdapter = true)
+data class BannerImageResponse(
+    val objImageGalleryList: List<ObjImageGalleryList>
+)
+
+@JsonClass(generateAdapter = true)
+data class ObjImageGalleryList(
+    val actionImageUrl: String? = null,
+    val actionType: Int? = null,
+    val actorId: Int? = null,
+    val actorRole: Any? = null,
+    val albumCategoryID: Int? = null,
+    val imageGalleryUrl: String? = null,
+    val isActive: Boolean? = null
+)
+

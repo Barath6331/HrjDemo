@@ -1,0 +1,504 @@
+package com.loyaltyworks.hrjohnson.model
+
+import com.squareup.moshi.JsonClass
+
+import com.squareup.moshi.Json
+import java.io.Serializable
+
+/*Profile request */
+@JsonClass(generateAdapter = true)
+data class ProfileRequest(
+    @Json(name = "ActionType")
+    val actionType: String? = null,
+    @Json(name = "CustomerId")
+    val customerId: String? = null
+)
+
+/*Profile Response */
+
+@JsonClass(generateAdapter = true)
+data class ProfileResponse(
+    @Json(name = "lstCustomerIdentityInfo")
+    var lstCustomerIdentityInfo: Any? = null,
+    @Json(name = "lstCustomerJson")
+    var lstCustomerJson: List<LstCustomerJson>? = null,
+    @Json(name = "lstCustomerOfficalInfoJson")
+    var lstCustomerOfficalInfoJson: List<LstCustomerOfficalInfoJson>? = null,
+    @Json(name = "lstVehicleJson")
+    var lstVehicleJson: List<Any>? = null,
+    @Json(name = "returnMessage")
+    var returnMessage: Any? = null,
+    @Json(name = "returnValue")
+    var returnValue: Int? = null,
+    @Json(name = "totalRecords")
+    var totalRecords: Int? = null
+)
+
+@JsonClass(generateAdapter = true)
+data class LstCustomerJson(
+    @Json(name = "accountComStatus")
+    var accountComStatus: Int? = null,
+    @Json(name = "accountNumber")
+    var accountNumber: String? = null,
+    @Json(name = "accountStatus")
+    var accountStatus: String? = null,
+    @Json(name = "accountType")
+    var accountType: Any? = null,
+    @Json(name = "accountTypeID")
+    var accountTypeID: Int? = null,
+    @Json(name = "acountHolderName")
+    var acountHolderName: String? = null,
+    @Json(name = "address1")
+    var address1: String? = null,
+    @Json(name = "address2")
+    var address2: String? = null,
+    @Json(name = "addressId")
+    var addressId: Int? = null,
+    @Json(name = "addressLatitude")
+    var addressLatitude: Any? = null,
+    @Json(name = "addressLongitude")
+    var addressLongitude: Any? = null,
+    @Json(name = "ageGroupId")
+    var ageGroupId: Int? = null,
+    @Json(name = "anniversary")
+    var anniversary: String? = null,
+    @Json(name = "areaId")
+    var areaId: Int? = null,
+    @Json(name = "autoAccountType")
+    var autoAccountType: Any? = null,
+    @Json(name = "autoBankCounty")
+    var autoBankCounty: Any? = null,
+    @Json(name = "autoBankPostCode")
+    var autoBankPostCode: Any? = null,
+    @Json(name = "bankAccountVerifiedStatus")
+    var bankAccountVerifiedStatus: Int? = null,
+    @Json(name = "bankAddress")
+    var bankAddress: Any? = null,
+    @Json(name = "bankBranch")
+    var bankBranch: Any? = null,
+    @Json(name = "bankCity")
+    var bankCity: Any? = null,
+    @Json(name = "bankCode")
+    var bankCode: Any? = null,
+    @Json(name = "bankCountryId")
+    var bankCountryId: Int? = null,
+    @Json(name = "bankCountryName")
+    var bankCountryName: Any? = null,
+    @Json(name = "bankName")
+    var bankName: String? = null,
+    @Json(name = "bankPassbookImage")
+    var bankPassbookImage: String? = null,
+    @Json(name = "bicSwiftCode")
+    var bicSwiftCode: Any? = null,
+    @Json(name = "branchCode")
+    var branchCode: Any? = null,
+    @Json(name = "bsbAbaRoutingNumber")
+    var bsbAbaRoutingNumber: Any? = null,
+    @Json(name = "chassisNumber")
+    var chassisNumber: String? = null,
+    @Json(name = "cityId")
+    var cityId: Int? = null,
+    @Json(name = "cityName")
+    var cityName: String? = null,
+    @Json(name = "company")
+    var company: Any? = null,
+    @Json(name = "contractFileName")
+    var contractFileName: Any? = null,
+    @Json(name = "contractId")
+    var contractId: Int? = null,
+    @Json(name = "contractName")
+    var contractName: Any? = null,
+    @Json(name = "countryId")
+    var countryId: Int? = null,
+    @Json(name = "countryName")
+    var countryName: String? = null,
+    @Json(name = "currency")
+    var currency: Any? = null,
+    @Json(name = "currencyId")
+    var currencyId: Int? = null,
+    @Json(name = "custFamilyId")
+    var custFamilyId: Int? = null,
+    @Json(name = "customerCategoryId")
+    var customerCategoryId: Int? = null,
+    @Json(name = "customerDetailId")
+    var customerDetailId: Int? = null,
+    @Json(name = "customerGrade")
+    var customerGrade: String? = null,
+    @Json(name = "customer_Grade_ID")
+    var customerGradeID: Int? = null,
+    @Json(name = "customerId")
+    var customerId: Int? = null,
+    @Json(name = "customerRelationshipId")
+    var customerRelationshipId: Int? = null,
+    @Json(name = "customerRemarks")
+    var customerRemarks: Any? = null,
+    @Json(name = "customerType")
+    var customerType: String? = null,
+    @Json(name = "customerTypeID")
+    var customerTypeID: Int? = null,
+    @Json(name = "customerTypeId")
+    var customerTypeId: Int? = null,
+    @Json(name = "displayImage")
+    var displayImage: Any? = null,
+    @Json(name = "district")
+    var district: String? = null,
+    @Json(name = "districtId")
+    var districtId: Int? = null,
+    @Json(name = "districtName")
+    var districtName: Any? = null,
+    @Json(name = "dob")
+    var dob: Any? = null,
+    @Json(name = "domain")
+    var domain: Any? = null,
+    @Json(name = "email")
+    var email: String? = null,
+    @Json(name = "emailStatus")
+    var emailStatus: Int? = null,
+    @Json(name = "engineNumber")
+    var engineNumber: Any? = null,
+    @Json(name = "enrollmentReferenceNumber")
+    var enrollmentReferenceNumber: String? = null,
+    @Json(name = "executiveName")
+    var executiveName: String? = null,
+    @Json(name = "familyMemberBirthday")
+    var familyMemberBirthday: Any? = null,
+    @Json(name = "familyMemberName")
+    var familyMemberName: String? = null,
+    @Json(name = "firstName")
+    var firstName: String? = null,
+    @Json(name = "gender")
+    var gender: String? = null,
+    @Json(name = "ibanNumber")
+    var ibanNumber: Any? = null,
+    @Json(name = "identificationNo")
+    var identificationNo: String? = null,
+    @Json(name = "identificationOthers")
+    var identificationOthers: Any? = null,
+    @Json(name = "ifscCode")
+    var ifscCode: String? = null,
+    @Json(name = "incomeRangeId")
+    var incomeRangeId: Int? = null,
+    @Json(name = "insuranceRenewalAmount")
+    var insuranceRenewalAmount: Int? = null,
+    @Json(name = "invoiceAmount")
+    var invoiceAmount: Any? = null,
+    @Json(name = "invoiceNo")
+    var invoiceNo: Any? = null,
+    @Json(name = "isActive")
+    var isActive: Int? = null,
+    @Json(name = "isBankPassbookNewImage")
+    var isBankPassbookNewImage: Boolean? = null,
+    @Json(name = "isBlackListed")
+    var isBlackListed: Boolean? = null,
+    @Json(name = "isGradeVerified")
+    var isGradeVerified: Boolean? = null,
+    @Json(name = "isSmartphoneUser")
+    var isSmartphoneUser: Boolean? = null,
+    @Json(name = "isUpdatePassword")
+    var isUpdatePassword: Boolean? = null,
+    @Json(name = "isVerified")
+    var isVerified: Int? = null,
+    @Json(name = "isVinChassis_Active")
+    var isVinChassisActive: Any? = null,
+    @Json(name = "isWhatsappUser")
+    var isWhatsappUser: Boolean? = null,
+    @Json(name = "jAnniversary")
+    var jAnniversary: Any? = null,
+    @Json(name = "jCreatedDate")
+    var jCreatedDate: String? = null,
+    @Json(name = "jD_InvoiceNo")
+    var jDInvoiceNo: Any? = null,
+    @Json(name = "jDateOfSale")
+    var jDateOfSale: Any? = null,
+    @Json(name = "jEnrollmentReferenceDate")
+    var jEnrollmentReferenceDate: Any? = null,
+    @Json(name = "jInsuranceExpDate")
+    var jInsuranceExpDate: Any? = null,
+    @Json(name = "jPolicyDate")
+    var jPolicyDate: Any? = null,
+    @Json(name = "jdob")
+    var jdob: String? = null,
+    @Json(name = "jjD_InvoiceDate")
+    var jjDInvoiceDate: Any? = null,
+    @Json(name = "lIdentificationType")
+    var lIdentificationType: Int? = null,
+    @Json(name = "laborAmount")
+    var laborAmount: Int? = null,
+    @Json(name = "landmark")
+    var landmark: String? = null,
+    @Json(name = "languageId")
+    var languageId: Int? = null,
+    @Json(name = "languageName")
+    var languageName: String? = null,
+    @Json(name = "lastName")
+    var lastName: String? = null,
+    @Json(name = "locality")
+    var locality: String? = null,
+    @Json(name = "locationCode")
+    var locationCode: String? = null,
+    @Json(name = "locationId")
+    var locationId: Int? = null,
+    @Json(name = "locationName")
+    var locationName: String? = null,
+    @Json(name = "loyaltyId")
+    var loyaltyId: String? = null,
+    @Json(name = "loyaltyIdAutoGen")
+    var loyaltyIdAutoGen: Boolean? = null,
+    @Json(name = "maritalStatus")
+    var maritalStatus: String? = null,
+    @Json(name = "merchantId")
+    var merchantId: Int? = null,
+    @Json(name = "mobile")
+    var mobile: String? = null,
+    @Json(name = "mobileNumberLimitation")
+    var mobileNumberLimitation: Int? = null,
+    @Json(name = "mobilePrefix")
+    var mobilePrefix: String? = null,
+    @Json(name = "mobile_Two")
+    var mobileTwo: String? = null,
+    @Json(name = "modelNumber")
+    var modelNumber: String? = null,
+    @Json(name = "nativeCountryId")
+    var nativeCountryId: Int? = null,
+    @Json(name = "nativeStateId")
+    var nativeStateId: Int? = null,
+    @Json(name = "nativeStateName")
+    var nativeStateName: String? = null,
+    @Json(name = "nominee")
+    var nominee: Any? = null,
+    @Json(name = "nomineeDOB")
+    var nomineeDOB: Any? = null,
+    @Json(name = "parentCustomerId")
+    var parentCustomerId: Int? = null,
+    @Json(name = "password")
+    var password: Any? = null,
+    @Json(name = "payOut")
+    var payOut: Int? = null,
+    @Json(name = "plainPassword")
+    var plainPassword: Any? = null,
+    @Json(name = "policyNumber")
+    var policyNumber: String? = null,
+    @Json(name = "professionId")
+    var professionId: Int? = null,
+    @Json(name = "profilePicture")
+    var profilePicture: String? = null,
+    @Json(name = "recipientPhonenumber")
+    var recipientPhonenumber: Any? = null,
+    @Json(name = "recipientType")
+    var recipientType: Any? = null,
+    @Json(name = "referedBy")
+    var referedBy: Any? = null,
+    @Json(name = "referralCode")
+    var referralCode: Any? = null,
+    @Json(name = "regStatus")
+    var regStatus: Int? = null,
+    @Json(name = "regType")
+    var regType: String? = null,
+    @Json(name = "registrationSource")
+    var registrationSource: Int? = null,
+    @Json(name = "relateD_PROJECT_TYPE")
+    var relateDPROJECTTYPE: Any? = null,
+    @Json(name = "relationship")
+    var relationship: String? = null,
+    @Json(name = "religionID")
+    var religionID: Int? = null,
+    @Json(name = "remarks")
+    var remarks: Any? = null,
+    @Json(name = "stateId")
+    var stateId: Int? = null,
+    @Json(name = "stateName")
+    var stateName: String? = null,
+    @Json(name = "talukId")
+    var talukId: Int? = null,
+    @Json(name = "talukName")
+    var talukName: Any? = null,
+    @Json(name = "taxId")
+    var taxId: Any? = null,
+    @Json(name = "tehsilBlockMandal")
+    var tehsilBlockMandal: String? = null,
+    @Json(name = "title")
+    var title: String? = null,
+    @Json(name = "tradeLicence")
+    var tradeLicence: Any? = null,
+    @Json(name = "userId")
+    var userId: Int? = null,
+    @Json(name = "vehicleBrand")
+    var vehicleBrand: Any? = null,
+    @Json(name = "vehicleID")
+    var vehicleID: Int? = null,
+    @Json(name = "vehicleNumber")
+    var vehicleNumber: String? = null,
+    @Json(name = "vehicleType")
+    var vehicleType: Any? = null,
+    @Json(name = "verifiedStatus")
+    var verifiedStatus: Any? = null,
+    @Json(name = "village")
+    var village: String? = null,
+    @Json(name = "walletNumber")
+    var walletNumber: Any? = null,
+    @Json(name = "whatsAppNumber")
+    var whatsAppNumber: Any? = null,
+    @Json(name = "zip")
+    var zip: String? = null,
+    @Json(name = "bankTransferMode")
+    var bankTransferMode: String? = null,
+    @Json(name = "upI_ID")
+    var upI_ID: String? = null,
+    @Json(name = "upiName")
+    var upiName: String? = null,
+    @Json(name = "upiAttachment")
+    var upiAttachment: String? = null,
+    @Json(name = "isDelete")
+    var isDelete: String? = null
+) : Serializable
+
+@JsonClass(generateAdapter = true)
+data class LstCustomerOfficalInfoJson(
+    @Json(name = "cityId")
+    var cityId: Int? = null,
+    @Json(name = "cityName")
+    var cityName: Any? = null,
+    @Json(name = "companyName")
+    var companyName: Any? = null,
+    @Json(name = "countryId")
+    var countryId: Int? = null,
+    @Json(name = "countryName")
+    var countryName: Any? = null,
+    @Json(name = "departmentIdOfficial")
+    var departmentIdOfficial: Int? = null,
+    @Json(name = "designation")
+    var designation: Any? = null,
+    @Json(name = "designationIdOfficial")
+    var designationIdOfficial: Int? = null,
+    @Json(name = "firmAddress")
+    var firmAddress: Any? = null,
+    @Json(name = "firmMobile")
+    var firmMobile: Any? = null,
+    @Json(name = "firmSize")
+    var firmSize: Any? = null,
+    @Json(name = "firmTypeID")
+    var firmTypeID: Int? = null,
+    @Json(name = "firmTypeName")
+    var firmTypeName: Any? = null,
+    @Json(name = "gstNumber")
+    var gstNumber: Any? = null,
+    @Json(name = "incorporationDate")
+    var incorporationDate: Any? = null,
+    @Json(name = "industryID")
+    var industryID: Int? = null,
+    @Json(name = "jobTypeID")
+    var jobTypeID: Int? = null,
+    @Json(name = "jobTypeName")
+    var jobTypeName: Any? = null,
+    @Json(name = "officalEmail")
+    var officalEmail: Any? = null,
+    @Json(name = "ownerName")
+    var ownerName: Any? = null,
+    @Json(name = "phoneOffice")
+    var phoneOffice: Any? = null,
+    @Json(name = "phoneResidence")
+    var phoneResidence: Any? = null,
+    @Json(name = "sapCode")
+    var sapCode: Any? = null,
+    @Json(name = "stateId")
+    var stateId: Int? = null,
+    @Json(name = "stateName")
+    var stateName: Any? = null,
+    @Json(name = "stdCode")
+    var stdCode: Any? = null,
+    @Json(name = "storeName")
+    var storeName: Any? = null,
+    @Json(name = "targetCreditPeriod")
+    var targetCreditPeriod: Int? = null,
+    @Json(name = "targetValue")
+    var targetValue: Int? = null,
+    @Json(name = "venderCode")
+    var venderCode: Any? = null,
+    @Json(name = "zip")
+    var zip: Any? = null,
+    @Json(name = "bankTransferMode")
+    var bankTransferMode: Any? = null
+)
+
+/*** Profile Image Update request ***/
+@JsonClass(generateAdapter = true)
+data class ProfileImageUpdateRequest(
+    @Json(name = "ActorId")
+    var actorId: String? = null,
+    @Json(name = "ObjCustomerJson")
+    var objCustomerJson: ObjCustomerJsonss? = null
+)
+
+@JsonClass(generateAdapter = true)
+data class ObjCustomerJsonss(
+    @Json(name = "DisplayImage")
+    var displayImage: String? = null,
+    @Json(name = "LoyaltyId")
+    var loyaltyId: String? = null
+)
+
+/*** Profile Image Update response ***/
+@JsonClass(generateAdapter = true)
+data class ProfileImageUpdateResponse(
+    @Json(name = "returnMessage")
+    var returnMessage: String? = null,
+    @Json(name = "returnValue")
+    var returnValue: Int? = null,
+    @Json(name = "totalRecords")
+    var totalRecords: Int? = null
+)
+
+/* Profile Update Request*/
+@JsonClass(generateAdapter = true)
+data class ActivationRequest(
+    var ActionType: String? = null,
+    var ActorId: String? = null,
+    var IsMobileRequest: Int? = null,
+    var ObjCustomerDetails: objCustomerDetails? = null,
+    var ObjCustomerJson: objCustomerJson? = null,
+    var ObjCustomerOfficalInfo: objCustomerOfficalInfo? = null
+)
+
+@JsonClass(generateAdapter = true)
+data class objCustomerDetails(
+    var Anniversary: String? = null,
+    var Gender: String? = null,
+    var IsNewProfilePicture: Int? = null,
+    val LoyaltyId: String? = null,
+    var ProfilePicture: String? = null
+)
+
+@JsonClass(generateAdapter = true)
+data class objCustomerJson(
+    var Address1: String? = null,
+    var Address2: String? = null,
+    var CityId: Int? = null,
+    var AddressId: String? = null,
+    var AddressLatitude: String? = null,
+    var AddressLongitude: String? = null,
+    var CountryId: String? = null,
+    var CustomerId: String? = null,
+    var CustomerZip: String? = null,
+    var DOB: String? = null,
+    var Email: String? = null,
+    var FirstName: String? = null,
+    var IsUpdatePassword: Int? = null,
+    var LastName: String? = null,
+    var LoyaltyId: String? = null,
+    var Mobile: String? = null,
+    var NativeCountryId: Int? = null,
+    var Password: String? = null
+)
+
+@JsonClass(generateAdapter = true)
+data class objCustomerOfficalInfo(
+    var CompanyName: String? = null
+)
+
+/* Profile Update Response */
+@JsonClass(generateAdapter = true)
+data class ActivationResponse(
+    val returnMessage: String? = null,
+    val returnValue: Int? = null,
+    val totalRecords: Int? = null
+)
