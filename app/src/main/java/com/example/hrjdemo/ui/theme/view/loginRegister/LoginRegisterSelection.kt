@@ -138,7 +138,7 @@ fun commonFeild(image: Int, text: String, onCLick: () -> Unit) {
                 Image(
                     painter = painterResource(id = image),
                     contentDescription = "",
-                    modifier = Modifier.size(55.dp)
+                    modifier = Modifier.size(50.dp)
                 )
 
                 Text(
