@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">HrjDemo</string>
     <string name="mobile_number">Mobile Number<font color="#FB291A">*</font></string>
+
+    <string name="generate_otp">Generate OTP</string>
+    <string name="submit">Submit</string>
 </resources>

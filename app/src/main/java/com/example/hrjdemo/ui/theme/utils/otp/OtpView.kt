@@ -1,4 +1,4 @@
-package com.example.hrjdemo.ui.theme.utils
+package com.example.hrjdemo.ui.theme.utils.otp
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable

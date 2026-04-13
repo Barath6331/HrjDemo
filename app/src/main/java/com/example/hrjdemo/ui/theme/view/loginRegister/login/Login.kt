@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,12 +14,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -26,9 +26,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldColors
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -46,14 +43,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.hrjdemo.R
 import com.example.hrjdemo.ui.theme.utils.AppButton
-import com.example.hrjdemo.ui.theme.utils.OtpView
+import com.example.hrjdemo.ui.theme.utils.otp.OtpTimer
+import com.example.hrjdemo.ui.theme.utils.otp.OtpView
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -64,28 +60,30 @@ fun Login(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("") },
-                navigationIcon = {
+                title = { Text("") }, navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             imageVector = Icons.Default.KeyboardArrowLeft,
                             contentDescription = "Back"
                         )
                     }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
+                }, colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = colorResource(R.color.white),
                     titleContentColor = colorResource(R.color.black),
                     navigationIconContentColor = colorResource(R.color.black)
                 )
             )
-        },
-        containerColor = colorResource(R.color.colorSecondary)
+        }, containerColor = colorResource(R.color.colorSecondary)
     ) { padding ->
-        Box(modifier = Modifier.fillMaxSize().padding(padding)) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+        ) {
             var mobileNumber by rememberSaveable { mutableStateOf("") }
-            var OtpFeildVisiblity by rememberSaveable { mutableStateOf(false) }
+            var isOtpFieldVisible  by rememberSaveable { mutableStateOf(false) }
             var isTextFieldEnabled by rememberSaveable { mutableStateOf(true) }
+            var otpText by rememberSaveable { mutableStateOf("") }
             Column() {
                 Column(
                     modifier = Modifier
@@ -107,22 +105,18 @@ fun Login(navController: NavController) {
                 Spacer(modifier = Modifier.height(20.dp))
 
                 Text(
-                    text = "Login",
-                    style = TextStyle(
+                    text = "Login", style = TextStyle(
                         fontSize = 18.sp,
                         fontFamily = FontFamily(Font(R.font.avenirnextltpro_bold)),
                         color = colorResource(R.color.black)
-                    ),
-                    modifier = Modifier.padding(start = 20.dp)
+                    ), modifier = Modifier.padding(start = 20.dp)
                 )
 
                 Text(
-                    text = stringResource(R.string.mobile_number),
-                    style = TextStyle(
+                    text = stringResource(R.string.mobile_number), style = TextStyle(
                         fontFamily = FontFamily(Font(R.font.avenirnextltpro_medium)),
                         color = colorResource(R.color.black)
-                    ),
-                    modifier = Modifier.padding(start = 20.dp, top = 10.dp)
+                    ), modifier = Modifier.padding(start = 20.dp, top = 10.dp)
                 )
 
                 Spacer(modifier = Modifier.height(15.dp))
@@ -144,14 +138,6 @@ fun Login(navController: NavController) {
                     contentAlignment = Alignment.CenterStart
                 ) {
 
-                    if (mobileNumber.isEmpty()) {
-                        Text(
-                            text = "Enter MobileNumber",
-                            color = Color.Gray,
-                            modifier = Modifier.padding(horizontal = 10.dp)
-                        )
-                    }
-
                     BasicTextField(
                         value = mobileNumber,
                         onValueChange = {
@@ -159,55 +145,95 @@ fun Login(navController: NavController) {
                                 mobileNumber = it.filter { c -> c.isDigit() }.take(10)
                             }
                         },
+                        singleLine = true,
+                        textStyle = TextStyle(
+                            color = Color.Black,
+                            fontSize = 14.sp
+                        ),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 10.dp),
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Number,
-                            imeAction = ImeAction.Done
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onDone = {
-                                validate(mobileNumber,context){
-                                    OtpFeildVisiblity = true
-                                    isTextFieldEnabled = false
+                            .padding(horizontal = 12.dp),
+                        decorationBox = { innerTextField ->
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Icon(
+                                    painter = painterResource(R.drawable.call_icon),
+                                    contentDescription = null,
+                                    modifier = Modifier.size(20.dp)
+                                )
+
+                                Spacer(modifier = Modifier.width(8.dp))
+
+                                Box {
+                                    if (mobileNumber.isEmpty()) {
+                                        Text("Enter MobileNumber", color = Color.Gray)
+                                    }
+                                    innerTextField()
                                 }
                             }
-                        ),
-                        textStyle = TextStyle(
-                            fontFamily = FontFamily(Font(R.font.avenirnextltpro_regular)),
-                            color = colorResource(R.color.black),
-                            fontSize = 14.sp
-                        )
+                        }
                     )
                 }
-                if (OtpFeildVisiblity) {
-                    Box(
-                        modifier = Modifier
-                            .padding(top = 30.dp)
-                            .fillMaxWidth(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        OtpView { otp ->
-                            println("OTP entered: $otp")
+                if (isOtpFieldVisible ) {
+                    Column() {
 
-                            if (otp.length == 6) {
-                                // verify OTP
+                        Spacer(modifier = Modifier.height(50.dp))
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 15.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = "Enter OTP",
+                                style = TextStyle(
+                                    fontFamily = FontFamily(Font(R.font.avenirnextltpro_bold)),
+                                    fontSize = 16.sp,
+                                    color = colorResource(R.color.black)
+                                )
+                            )
+
+                            OtpTimer {
+                                println("Resend OTP clicked")
+                            }
+                        }
+
+
+                        Box(
+                            modifier = Modifier
+                                .padding(top = 20.dp)
+                                .fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            OtpView { otp ->
+                                println("OTP entered: $otp")
+
+                                if (otp.length == 6) {
+                                    otpText = otp
+                                }
                             }
                         }
                     }
                 }
+
             }
 
+            var buttonText: String
+            if (isOtpFieldVisible ) {
+                buttonText = stringResource(R.string.submit)
+            } else {
+                buttonText = stringResource(R.string.generate_otp)
+            }
             AppButton(
-                text = "Login",
+                text = buttonText,
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .padding(top = 20.dp, bottom = 30.dp, start = 20.dp, end = 20.dp)
             ) {
-                validate(mobileNumber,context){
-                    OtpFeildVisiblity = true
+                validate(mobileNumber, context) {
+                    isOtpFieldVisible  = true
                     isTextFieldEnabled = false
                 }
             }
@@ -215,14 +241,17 @@ fun Login(navController: NavController) {
     }
 
 }
-fun validate(mobile : String, context: Context, onSuccess:()-> Unit){
+
+fun validate(mobile: String, context: Context, onSuccess: () -> Unit) {
     when {
         mobile.isEmpty() -> {
             Toast.makeText(context, "Please Enter Mobile Number", Toast.LENGTH_LONG).show()
         }
+
         mobile.length != 10 -> {
             Toast.makeText(context, "Please Enter Valid Mobile Number", Toast.LENGTH_LONG).show()
         }
+
         else -> onSuccess()
     }
 }
