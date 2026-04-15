@@ -16,6 +16,7 @@ hilt = "2.59"
 ksp = "2.0.21-1.0.25"
 appcompat = "1.7.1"
 securityCrypto = "1.1.0-alpha06"
+room3CommonJvm = "3.0.0-alpha02"
 
 
 
@@ -52,6 +53,7 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", v
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "securityCrypto" }
 authentication-library = { module = "com.github.vidheyMB:AuthenticationLibrary", version = "c37020f001" }
+androidx-room3-common-jvm = { group = "androidx.room3", name = "room3-common-jvm", version.ref = "room3CommonJvm" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

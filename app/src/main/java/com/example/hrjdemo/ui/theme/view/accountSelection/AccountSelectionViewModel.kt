@@ -1,27 +1,44 @@
 package com.example.hrjdemo.ui.theme.view.accountSelection
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.hrjdemo.ui.theme.utils.PreferenceHelper
 import com.example.hrjdemo.ui.theme.utils.apicall.ApiRepository
 import com.example.hrjdemo.ui.theme.utils.network.NetworkResult
+import com.example.hrjdemo.ui.theme.utils.network.UiState
 import com.loyaltyworks.hrjohnson.model.AccountTypeRequest
 import com.loyaltyworks.hrjohnson.model.AccountTypeResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AccountSelectionViewModel @Inject constructor(private val apiRepository: ApiRepository) :
-    ViewModel() {
+class AccountSelectionViewModel @Inject constructor(private val apiRepository: ApiRepository,private val preferenceHelper: PreferenceHelper) : ViewModel() {
 
-    private val _accountTypeData = MutableLiveData<NetworkResult<AccountTypeResponse>>()
-    val accountTypeData: LiveData<NetworkResult<AccountTypeResponse>> = _accountTypeData
+    fun saveCustomerID(customerId:String){
+        preferenceHelper.setStringValue("CustomerType",customerId)
+    }
+    // Using the common generic UiState!
+    private val _accountTypeData = MutableStateFlow<UiState<AccountTypeResponse>>(UiState.Idle)
+    val accountTypeData: StateFlow<UiState<AccountTypeResponse>> = _accountTypeData.asStateFlow()
 
     fun getAccountType(accountTypeRequest: AccountTypeRequest) {
         viewModelScope.launch {
-            _accountTypeData.value = apiRepository.getAccountType(accountTypeRequest)
+            // Emitting Loading state before network call
+            _accountTypeData.value = UiState.Loading
+
+            // Assuming your repository returns a NetworkResult
+            when (val result = apiRepository.getAccountType(accountTypeRequest)) {
+                is NetworkResult.Success -> {
+                    _accountTypeData.value = UiState.Success(result.data)
+                }
+                is NetworkResult.Error -> {
+                    _accountTypeData.value = UiState.Error(result.message, result.code)
+                }
+            }
         }
     }
 }

@@ -21,16 +21,25 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -45,19 +54,112 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.hrjdemo.R
 import com.example.hrjdemo.ui.theme.utils.AppButton
+import com.example.hrjdemo.ui.theme.utils.model.EmailData
+import com.example.hrjdemo.ui.theme.utils.model.EmailExistencyChekRequest
+import com.example.hrjdemo.ui.theme.utils.model.OTPValidationRequest
+import com.example.hrjdemo.ui.theme.utils.model.SaveAndGetOTPDetailsRequest
+import com.example.hrjdemo.ui.theme.utils.network.UiState
 import com.example.hrjdemo.ui.theme.utils.otp.OtpTimer
 import com.example.hrjdemo.ui.theme.utils.otp.OtpView
-
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Login(navController: NavController) {
-
+fun Login(navController: NavController, viewModel: LoginViewModel = hiltViewModel()) {
     val context = LocalContext.current
+
+    val existencyState by viewModel.existency.collectAsState()
+    val getOtpState by viewModel.getOtp.collectAsState()
+    val validateOtpState by viewModel.validateOtp.collectAsState()
+    val snackbarHostState = remember { SnackbarHostState() }
+    
+    var mobileNumber by rememberSaveable { mutableStateOf("") }
+    var isOtpFieldVisible by rememberSaveable { mutableStateOf(false) }
+    var isTextFieldEnabled by rememberSaveable { mutableStateOf(true) }
+    var otpText by rememberSaveable { mutableStateOf("") }
+    var showMobileNotExistDialog by rememberSaveable { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+
+    LaunchedEffect(validateOtpState) {
+        if(validateOtpState is UiState.Success){
+            val response = (validateOtpState as UiState.Success).data
+            if(response.returnMessage.toString().toInt() > 0){
+                snackbarHostState.showSnackbar("login Successfully")
+            }else{
+                snackbarHostState.showSnackbar("Invalid OTP")
+            }
+        }else if (validateOtpState is UiState.Error){
+            snackbarHostState.showSnackbar("Something Went wrong")
+        }
+    }
+    LaunchedEffect(existencyState) {
+        if (existencyState is UiState.Success) {
+            val res = (existencyState as UiState.Success).data
+            if (res == 1) {
+                // Number exists -> Trigger Send OTP Logic automatically
+                val request = SaveAndGetOTPDetailsRequest(
+                    MerchantUserName = "HRjohnson", // As gathered from token
+                    UserName = "",
+                    UserId = -1,
+                    MobileNo = mobileNumber,
+                    OTPType = "Enrollment"
+                )
+                viewModel.getOtp(request)
+            } else {
+                showMobileNotExistDialog = true
+            }
+        } else if (existencyState is UiState.Error) {
+            snackbarHostState.showSnackbar("Error: ${(existencyState as UiState.Error).message}")
+        }
+    }
+
+    LaunchedEffect(getOtpState) {
+        if (getOtpState is UiState.Success) {
+            val res = (getOtpState as UiState.Success).data
+            if (res.returnValue != null && res.returnValue!! > 0) {
+                isOtpFieldVisible = true
+                isTextFieldEnabled = false
+            } else {
+                snackbarHostState.showSnackbar(res.returnMessage ?: "Failed to send OTP")
+            }
+        } else if (getOtpState is UiState.Error) {
+            snackbarHostState.showSnackbar("Error: ${(getOtpState as UiState.Error).message}")
+        }
+    }
+
+    fun sendOtpApi(){
+        val request = SaveAndGetOTPDetailsRequest(
+            MerchantUserName = "HRjohnson", // As gathered from token
+            UserName = "",
+            UserId = -1,
+            MobileNo = mobileNumber,
+            OTPType = "Enrollment"
+        )
+        viewModel.getOtp(request)
+    }
+
+    if (showMobileNotExistDialog) {
+        AlertDialog(
+            onDismissRequest = { showMobileNotExistDialog = false },
+            title = { Text(text = "Information") },
+            text = { Text(text = "Mobile number not exist!") },
+            confirmButton = {
+                TextButton(onClick = { 
+                    mobileNumber = "" 
+                    showMobileNotExistDialog = false 
+                }) {
+                    Text("OK")
+                }
+            }
+        )
+    }
+
     Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
             TopAppBar(
                 title = { Text("") }, navigationIcon = {
@@ -80,10 +182,6 @@ fun Login(navController: NavController) {
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            var mobileNumber by rememberSaveable { mutableStateOf("") }
-            var isOtpFieldVisible  by rememberSaveable { mutableStateOf(false) }
-            var isTextFieldEnabled by rememberSaveable { mutableStateOf(true) }
-            var otpText by rememberSaveable { mutableStateOf("") }
             Column() {
                 Column(
                     modifier = Modifier
@@ -175,7 +273,7 @@ fun Login(navController: NavController) {
                         }
                     )
                 }
-                if (isOtpFieldVisible ) {
+                if (isOtpFieldVisible) {
                     Column() {
 
                         Spacer(modifier = Modifier.height(50.dp))
@@ -196,7 +294,7 @@ fun Login(navController: NavController) {
                             )
 
                             OtpTimer {
-                                println("Resend OTP clicked")
+                                sendOtpApi()
                             }
                         }
 
@@ -208,11 +306,7 @@ fun Login(navController: NavController) {
                             contentAlignment = Alignment.Center
                         ) {
                             OtpView { otp ->
-                                println("OTP entered: $otp")
-
-                                if (otp.length == 6) {
-                                    otpText = otp
-                                }
+                                otpText = otp
                             }
                         }
                     }
@@ -221,7 +315,7 @@ fun Login(navController: NavController) {
             }
 
             var buttonText: String
-            if (isOtpFieldVisible ) {
+            if (isOtpFieldVisible) {
                 buttonText = stringResource(R.string.submit)
             } else {
                 buttonText = stringResource(R.string.generate_otp)
@@ -232,10 +326,34 @@ fun Login(navController: NavController) {
                     .align(Alignment.BottomCenter)
                     .padding(top = 20.dp, bottom = 30.dp, start = 20.dp, end = 20.dp)
             ) {
-                validate(mobileNumber, context) {
-                    isOtpFieldVisible  = true
-                    isTextFieldEnabled = false
+                if (isOtpFieldVisible) {
+                    if(otpText.length != 6){
+                        scope.launch{
+                            snackbarHostState.showSnackbar("Please Enter Valid OTP")
+                        }
+                    }else{
+                        val request = OTPValidationRequest(
+                            actionType ="Get Encrypted OTP",
+                            mobileNo = mobileNumber,
+                            oTP = otpText,
+                            userName = ""
+                        )
+                        viewModel.validateOtpApi(request)
+                    }
+                } else {
+                    validate(mobileNumber, context) {
+                        val request = EmailExistencyChekRequest(
+                            actionType = "74",
+                            emailData = EmailData(userName = mobileNumber)
+                        )
+                        viewModel.existencyCheck(request)
+                    }
                 }
+            }
+
+            // Display loading indicator
+            if (existencyState is UiState.Loading || getOtpState is UiState.Loading) {
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
         }
     }
