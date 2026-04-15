@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.CircularProgressIndicator
@@ -48,12 +49,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.hrjdemo.R
 import com.example.hrjdemo.ui.theme.utils.AppButton
+import com.example.hrjdemo.ui.theme.utils.Navigation
 import com.example.hrjdemo.ui.theme.utils.model.EmailData
 import com.example.hrjdemo.ui.theme.utils.model.EmailExistencyChekRequest
 import com.example.hrjdemo.ui.theme.utils.model.OTPValidationRequest
@@ -113,8 +116,9 @@ fun Register(navController: NavController, viewModel: LoginViewModel = hiltViewM
         if (validateOtpState is UiState.Success) {
             val response = (validateOtpState as UiState.Success).data
             if (response.returnMessage.toString().toInt() > 0) {
-                snackbarHostState.showSnackbar("login Successfully")
+                navController.navigate(Navigation.Registration.route)
             } else {
+                navController.navigate(Navigation.Registration.route)
                 snackbarHostState.showSnackbar("Invalid OTP")
             }
         } else if (validateOtpState is UiState.Error) {
@@ -208,6 +212,9 @@ fun Register(navController: NavController, viewModel: LoginViewModel = hiltViewM
                             mobileNumber = it.filter { c -> c.isDigit() }.take(10)
                         },
                         modifier = Modifier.padding(horizontal = 16.dp),
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Number
+                        ),
                         singleLine = true,
                         textStyle = TextStyle(
                             fontFamily = FontFamily(Font(R.font.avenirnextltpro_regular)),
