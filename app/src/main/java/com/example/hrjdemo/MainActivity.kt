@@ -14,6 +14,7 @@ import com.example.hrjdemo.ui.theme.view.loginRegister.login.Login
 import com.example.hrjdemo.ui.theme.view.accountSelection.AccountSelection
 import com.example.hrjdemo.ui.theme.view.loginRegister.LoginRegisterSelection
 import com.example.hrjdemo.ui.theme.view.loginRegister.register.Register
+import com.example.hrjdemo.ui.theme.view.loginRegister.register.Registration
 import com.example.hrjdemo.ui.theme.view.splash.SplashScreen
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -48,6 +49,10 @@ class MainActivity : ComponentActivity() {
                     }
                     composable(Navigation.Register.route) {
                         Register(navController)
+                    }
+
+                    composable(Navigation.Registration.route) {
+                        Registration(navController)
                     }
                 }
             }
