@@ -13,8 +13,11 @@ import com.example.hrjdemo.ui.theme.view.Dashboard
 import com.example.hrjdemo.ui.theme.view.loginRegister.login.Login
 import com.example.hrjdemo.ui.theme.view.accountSelection.AccountSelection
 import com.example.hrjdemo.ui.theme.view.loginRegister.LoginRegisterSelection
+import com.example.hrjdemo.ui.theme.view.loginRegister.register.Register
 import com.example.hrjdemo.ui.theme.view.splash.SplashScreen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +45,9 @@ class MainActivity : ComponentActivity() {
 
                     composable(Navigation.LoginRegisterSelection.route) {
                         LoginRegisterSelection(navController)
+                    }
+                    composable(Navigation.Register.route) {
+                        Register(navController)
                     }
                 }
             }

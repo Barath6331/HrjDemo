@@ -109,7 +109,7 @@ object NetworkModule {
                 .writeTimeout(60, TimeUnit.SECONDS)
 
         if (sha.isNotEmpty()) {
-            val host = ""
+            val host = "hrjdemoserv.loyltwo3ks.com"
 
             val certificatePinner = CertificatePinner.Builder().add(host, sha).build()
 
@@ -123,7 +123,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("")
+            .baseUrl("https://hrjdemoserv.loyltwo3ks.com/Mobile/")
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()

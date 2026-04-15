@@ -104,7 +104,7 @@ fun LoginRegisterSelection(navController: NavController) {
             Spacer(modifier = Modifier.height(10.dp))
 
             commonFeild(R.drawable.register_icon, "Register") {
-
+                navController.navigate(Navigation.Register.route)
             }
         }
 

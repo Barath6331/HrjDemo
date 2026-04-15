@@ -1,6 +1,7 @@
 package com.loyaltyworks.hrjohnson.model
 
-import androidx.room.Ignore
+
+import androidx.room3.Ignore
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.io.Serializable

@@ -3,6 +3,7 @@ package com.example.hrjdemo.ui.theme.utils
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import com.example.hrjdemo.ui.theme.utils.model.LoginResponse
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -30,7 +31,7 @@ class PreferenceHelper @Inject constructor(@ApplicationContext context: Context,
         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
     )
 
-   /* fun clear() {
+    fun clear() {
         sharedPreferences.edit().clear().apply()
     }
 
@@ -67,22 +68,4 @@ class PreferenceHelper @Inject constructor(@ApplicationContext context: Context,
             null
         }
     }
-
-    private fun campaignAdapter(): JsonAdapter<LstCampaign> {
-        return moshi.adapter(LstCampaign::class.java)
-    }
-
-    fun setCampaignDetails(lstCampaign: LstCampaign) {
-        val json = campaignAdapter().toJson(lstCampaign)
-        sharedPreferences.edit().putString(CampaingDetails, json).apply()
-    }
-
-    fun getCampaignDetails(): LstCampaign? {
-        val stringValue = sharedPreferences.getString(CampaingDetails, "")
-        return if (!stringValue.isNullOrEmpty()) {
-            campaignAdapter().fromJson(stringValue)
-        } else {
-            null
-        }
-    }*/
 }
