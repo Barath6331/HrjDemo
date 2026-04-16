@@ -17,6 +17,7 @@ ksp = "2.0.21-1.0.25"
 appcompat = "1.7.1"
 securityCrypto = "1.1.0-alpha06"
 room3CommonJvm = "3.0.0-alpha02"
+runtimeSaveable = "1.10.6"
 
 
 
@@ -54,6 +55,7 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 androidx-security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "securityCrypto" }
 authentication-library = { module = "com.github.vidheyMB:AuthenticationLibrary", version = "c37020f001" }
 androidx-room3-common-jvm = { group = "androidx.room3", name = "room3-common-jvm", version.ref = "room3CommonJvm" }
+androidx-compose-runtime-saveable = { group = "androidx.compose.runtime", name = "runtime-saveable", version.ref = "runtimeSaveable" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

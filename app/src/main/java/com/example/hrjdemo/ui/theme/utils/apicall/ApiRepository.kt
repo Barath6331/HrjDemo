@@ -11,6 +11,10 @@ import com.example.hrjdemo.ui.theme.utils.model.SaveAndGetOTPDetailsResponse
 import com.example.hrjdemo.ui.theme.utils.network.NetworkResult
 import com.loyaltyworks.hrjohnson.model.AccountTypeRequest
 import com.loyaltyworks.hrjohnson.model.AccountTypeResponse
+import com.loyaltyworks.hrjohnson.model.CityListRequest
+import com.loyaltyworks.hrjohnson.model.CityListResponse
+import com.loyaltyworks.hrjohnson.model.StateListRequest
+import com.loyaltyworks.hrjohnson.model.StateListResponse
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -40,6 +44,18 @@ class ApiRepository @Inject constructor(private val apiInterface: ApiInterface) 
     suspend fun getLoginDetails(loginRequest: LoginRequest): NetworkResult<LoginResponse> {
         return safeApiCall {
             apiInterface.getLoginDetails(loginRequest)
+        }
+    }
+
+    suspend fun getState(stateListRequest: StateListRequest): NetworkResult<StateListResponse> {
+        return safeApiCall {
+            apiInterface.getState(stateListRequest)
+        }
+    }
+
+    suspend fun getCity(cityListRequest: CityListRequest): NetworkResult<CityListResponse> {
+        return safeApiCall {
+            apiInterface.getCity(cityListRequest)
         }
     }
 }

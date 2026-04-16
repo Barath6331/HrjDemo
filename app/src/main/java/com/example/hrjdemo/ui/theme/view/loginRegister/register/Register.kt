@@ -116,9 +116,9 @@ fun Register(navController: NavController, viewModel: LoginViewModel = hiltViewM
         if (validateOtpState is UiState.Success) {
             val response = (validateOtpState as UiState.Success).data
             if (response.returnMessage.toString().toInt() > 0) {
-                navController.navigate(Navigation.Registration.route)
+                navController.navigate(Navigation.Registration.create(mobileNumber))
             } else {
-                navController.navigate(Navigation.Registration.route)
+                navController.navigate(Navigation.Registration.create(mobileNumber))
                 snackbarHostState.showSnackbar("Invalid OTP")
             }
         } else if (validateOtpState is UiState.Error) {
