@@ -9,6 +9,10 @@ import com.example.hrjdemo.ui.theme.utils.model.SaveAndGetOTPDetailsRequest
 import com.example.hrjdemo.ui.theme.utils.model.SaveAndGetOTPDetailsResponse
 import com.loyaltyworks.hrjohnson.model.AccountTypeRequest
 import com.loyaltyworks.hrjohnson.model.AccountTypeResponse
+import com.loyaltyworks.hrjohnson.model.CityListRequest
+import com.loyaltyworks.hrjohnson.model.CityListResponse
+import com.loyaltyworks.hrjohnson.model.StateListRequest
+import com.loyaltyworks.hrjohnson.model.StateListResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -25,8 +29,14 @@ interface ApiInterface {
     suspend fun sentOtp(@Body saveAndGetOTPDetailsRequest: SaveAndGetOTPDetailsRequest): Response<SaveAndGetOTPDetailsResponse>
 
     @POST("IsvalidateOTP")
-    suspend fun validateOtp(@Body oTPValidationRequest: OTPValidationRequest) : Response<OTPValidationResponse>
+    suspend fun validateOtp(@Body oTPValidationRequest: OTPValidationRequest): Response<OTPValidationResponse>
 
     @POST("CheckIsAuthenticatedMobileApp")
     suspend fun getLoginDetails(@Body loginRequest: LoginRequest): Response<LoginResponse>
+
+    @POST("GetStateDetailsMobileApp")
+    suspend fun getState(@Body stateListRequest: StateListRequest): Response<StateListResponse>
+
+    @POST("GetCityDetailsMobileApp")
+    suspend fun getCity(@Body cityListRequest: CityListRequest): Response<CityListResponse>
 }

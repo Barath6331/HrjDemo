@@ -30,13 +30,13 @@ data class StateListResponse(
     @Json(name = "returnValue")
     var returnValue: Int? = null,
     @Json(name = "stateList")
-    var stateList: List<State>? = null,
+    var stateList: List<StateList>? = null,
     @Json(name = "totalRecords")
     var totalRecords: Int? = null
 )
 
 @JsonClass(generateAdapter = true)
-data class State(
+data class StateList(
     @Json(name = "countryCode")
     var countryCode: Any? = null,
     @Json(name = "countryId")
