@@ -1,5 +1,9 @@
 package com.example.hrjdemo.ui.theme.view.loginRegister.register
 
+import android.content.Context
+import android.util.Log
+import android.util.Patterns
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -30,6 +34,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.currentComposer
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,6 +43,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -55,7 +61,12 @@ import androidx.navigation.NavController
 import com.example.hrjdemo.R
 import com.example.hrjdemo.ui.theme.utils.AppButton
 import com.example.hrjdemo.ui.theme.utils.CommonDropdown
+import com.example.hrjdemo.ui.theme.utils.Navigation
+import com.example.hrjdemo.ui.theme.utils.model.LoginRequest
+import com.example.hrjdemo.ui.theme.utils.model.ObjcustomerjsonRegister
+import com.example.hrjdemo.ui.theme.utils.model.RegistrationRequest
 import com.example.hrjdemo.ui.theme.utils.network.UiState
+import com.example.hrjdemo.ui.theme.utils.preferenceHelper.PrefKey
 import com.loyaltyworks.hrjohnson.model.City
 import com.loyaltyworks.hrjohnson.model.CityListRequest
 import com.loyaltyworks.hrjohnson.model.StateList
@@ -69,6 +80,7 @@ fun Registration(
     viewModel: RegistrationViewModel = hiltViewModel(),
 ) {
 
+    val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
 
     var name by rememberSaveable { mutableStateOf("") }
@@ -81,6 +93,9 @@ fun Registration(
 
     val stateListingState by viewModel.stateList.collectAsState()
     val cityListingState by viewModel.cityList.collectAsState()
+    val registrationState by viewModel.registrationValue.collectAsState()
+    val loginState by viewModel.loginData.collectAsState()
+
 
     var selectedState by remember { mutableStateOf<StateList?>(null) }
     var stateList by remember { mutableStateOf<List<StateList>>(emptyList()) }
@@ -116,6 +131,52 @@ fun Registration(
 
         } else if (cityListingState is UiState.Error) {
             snackbarHostState.showSnackbar((cityListingState as UiState.Error).message)
+        }
+    }
+
+    LaunchedEffect(registrationState) {
+        if (registrationState is UiState.Success) {
+            val response = (registrationState as UiState.Success).data
+            if (response.returnMessage?.split("~")[0] == "1") {
+                val request = LoginRequest(
+                    browser = "Android",
+                    loggedDeviceName = "Android",
+                    userName = mobile,
+                    password = "123456",
+                    pushID = "fksoVJ5nTZyBUoWnX6ep5N:APA91bGYHKtec9FgFGC_fjor2Ujzxj7_zpRNoZKRz82IxuNxAnJaq-R-XwldWRCHjrzzjdkFEIJgnSiUEqRhTGYZnQe4ruj5oYfhYXWWzi_mmXaNRozG83w",
+                    userActionType = "GetPasswordDetails",
+                    userType = "Customer",
+                    sessionId = viewModel.preferenceHelper.getStringValue(PrefKey.CustomerType),
+                    userIp = "",
+                    loggedDeviceID = "",
+                )
+                viewModel.loginRequest(request)
+            } else {
+                snackbarHostState.showSnackbar("Registration Failed!")
+            }
+        } else if (registrationState is UiState.Error) {
+            snackbarHostState.showSnackbar((registrationState as UiState.Error).message)
+        }
+    }
+
+    LaunchedEffect(loginState) {
+        if (loginState is UiState.Success) {
+            val response = (loginState as UiState.Success).data
+            if (response.userList?.get(0)?.result == 1) {
+                viewModel.preferenceHelper.setStringValue(PrefKey.LoggedIn, "1")
+                viewModel.preferenceHelper.setLoginDetails(response)
+                navController.navigate(Navigation.Dashboard.route) {
+                    navController.currentDestination?.route?.let {
+                        popUpTo(it) {
+                            inclusive = true
+                        }
+                    }
+                }
+            }else{
+                snackbarHostState.showSnackbar("Login Failed")
+            }
+        } else if (loginState is UiState.Error) {
+            snackbarHostState.showSnackbar((loginState as UiState.Error).message)
         }
     }
 
@@ -309,10 +370,47 @@ fun Registration(
                 )
 
                 Spacer(modifier = Modifier.height(50.dp))
-                AppButton("Submit") {}
+                AppButton("Submit") {
+                    Log.d("asfsadf", "" + selectedState?.stateId)
+                    val validate = validate(
+                        context = context,
+                        name = name,
+                        email = email,
+                        address = address,
+                        state = selectedState?.stateId.toString(),
+                        city = selectedCity?.cityId.toString(),
+                        pincode = pincode,
+                        perferredDealerName = preferredDealername
+                    )
+
+                    if (validate) {
+                        val request = RegistrationRequest(
+                            actiontype = "0",
+                            objcustomerjson = ObjcustomerjsonRegister(
+                                firstName = name,
+                                lastName = "",
+                                email = email,
+                                mobile = mobile,
+                                address1 = address,
+                                cityid = selectedCity?.cityId.toString(),
+                                countryId = 15,
+                                customertypeid = viewModel.preferenceHelper.getStringValue(PrefKey.CustomerType)
+                                    .toInt(),
+                                preferedDealerName = preferredDealername,
+                                referrerCode = "",
+                                registrationSource = "3",
+                                stateId = selectedState?.stateId,
+                                zip = pincode,
+                                loyaltyId = mobile
+                            )
+                        )
+
+                        viewModel.registrationApi(request)
+                    }
+                }
             }
 
-            if (stateListingState is UiState.Loading) {
+            if (stateListingState is UiState.Loading || cityListingState is UiState.Loading || registrationState is UiState.Loading) {
                 CircularProgressIndicator(
                     modifier = Modifier
                         .size(50.dp)
@@ -400,4 +498,39 @@ fun textFeild(
                 })
         }
     }
+}
+
+fun validate(
+    context: Context,
+    name: String,
+    email: String,
+    address: String,
+    state: String,
+    city: String,
+    pincode: String,
+    perferredDealerName: String,
+): Boolean {
+    var boolean = false
+    if (name.isEmpty()) {
+        Toast.makeText(context, "Please Enter Name", Toast.LENGTH_LONG).show()
+    } else if (email.isEmpty()) {
+        Toast.makeText(context, "Please Enter Email", Toast.LENGTH_LONG).show()
+    } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        Toast.makeText(context, "Please Enter Valid Email", Toast.LENGTH_LONG).show()
+    } else if (address.isEmpty()) {
+        Toast.makeText(context, "Please Enter Address", Toast.LENGTH_LONG).show()
+    } else if (state.isEmpty() || state == "null") {
+        Toast.makeText(context, "Please Select State", Toast.LENGTH_LONG).show()
+    } else if (city.isEmpty() || city == "null") {
+        Toast.makeText(context, "Please Select City", Toast.LENGTH_LONG).show()
+    } else if (pincode.isEmpty()) {
+        Toast.makeText(context, "Please Enter Pincode", Toast.LENGTH_LONG).show()
+    } else if (pincode.length != 6) {
+        Toast.makeText(context, "Please Enter Valid Pincode", Toast.LENGTH_LONG).show()
+    } else if (perferredDealerName.isEmpty()) {
+        Toast.makeText(context, "Please Enter Preferred Dealer Name", Toast.LENGTH_LONG).show()
+    } else {
+        boolean = true
+    }
+    return boolean
 }

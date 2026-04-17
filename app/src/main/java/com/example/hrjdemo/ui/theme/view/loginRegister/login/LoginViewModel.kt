@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.hrjdemo.ui.theme.utils.PreferenceHelper
+import com.example.hrjdemo.ui.theme.utils.preferenceHelper.PreferenceHelper
 import com.example.hrjdemo.ui.theme.utils.apicall.ApiRepository
 import com.example.hrjdemo.ui.theme.utils.model.EmailExistencyChekRequest
 import com.example.hrjdemo.ui.theme.utils.model.LoginRequest
@@ -26,19 +26,29 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val apiRepository: ApiRepository,
-    private val preferenceHelper: PreferenceHelper,
+    val preferenceHelper: PreferenceHelper,
 ) : ViewModel() {
 
     fun getCustomerID(): String {
         return preferenceHelper.getStringValue("CustomerType")
     }
 
-    private val _loginData = MutableLiveData<NetworkResult<LoginResponse>>()
-    val loginData: LiveData<NetworkResult<LoginResponse>> = _loginData
+    private val _loginData = MutableStateFlow<UiState<LoginResponse>>(UiState.Idle)
+    val loginData: StateFlow<UiState<LoginResponse>> = _loginData.asStateFlow()
 
     fun loginRequest(loginRequest: LoginRequest) {
         viewModelScope.launch {
-            _loginData.value = apiRepository.getLoginDetails(loginRequest)
+            _loginData.value = UiState.Loading
+
+            when (val response = apiRepository.getLoginDetails(loginRequest)) {
+                is NetworkResult.Success -> {
+                    _loginData.value = UiState.Success(response.data)
+                }
+
+                is NetworkResult.Error -> {
+                    _loginData.value = UiState.Error(response.message, response.code)
+                }
+            }
         }
     }
 

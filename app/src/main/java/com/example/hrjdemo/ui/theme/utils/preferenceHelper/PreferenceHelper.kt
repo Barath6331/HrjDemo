@@ -1,4 +1,4 @@
-package com.example.hrjdemo.ui.theme.utils
+package com.example.hrjdemo.ui.theme.utils.preferenceHelper
 
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences

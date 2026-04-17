@@ -5,6 +5,8 @@ import com.example.hrjdemo.ui.theme.utils.model.LoginRequest
 import com.example.hrjdemo.ui.theme.utils.model.LoginResponse
 import com.example.hrjdemo.ui.theme.utils.model.OTPValidationRequest
 import com.example.hrjdemo.ui.theme.utils.model.OTPValidationResponse
+import com.example.hrjdemo.ui.theme.utils.model.RegistrationRequest
+import com.example.hrjdemo.ui.theme.utils.model.RegistrationResponse
 import com.example.hrjdemo.ui.theme.utils.model.SaveAndGetOTPDetailsRequest
 import com.example.hrjdemo.ui.theme.utils.model.SaveAndGetOTPDetailsResponse
 import com.loyaltyworks.hrjohnson.model.AccountTypeRequest
@@ -39,4 +41,7 @@ interface ApiInterface {
 
     @POST("GetCityDetailsMobileApp")
     suspend fun getCity(@Body cityListRequest: CityListRequest): Response<CityListResponse>
+
+    @POST("SaveCustomerRegistrationDetailsMobileApp")
+    suspend fun registrationApi(@Body registrationRequest: RegistrationRequest) : Response<RegistrationResponse>
 }
