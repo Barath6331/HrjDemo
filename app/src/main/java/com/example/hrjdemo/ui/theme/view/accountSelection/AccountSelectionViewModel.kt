@@ -2,10 +2,11 @@ package com.example.hrjdemo.ui.theme.view.accountSelection
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.hrjdemo.ui.theme.utils.PreferenceHelper
+import com.example.hrjdemo.ui.theme.utils.preferenceHelper.PreferenceHelper
 import com.example.hrjdemo.ui.theme.utils.apicall.ApiRepository
 import com.example.hrjdemo.ui.theme.utils.network.NetworkResult
 import com.example.hrjdemo.ui.theme.utils.network.UiState
+import com.example.hrjdemo.ui.theme.utils.preferenceHelper.PrefKey
 import com.loyaltyworks.hrjohnson.model.AccountTypeRequest
 import com.loyaltyworks.hrjohnson.model.AccountTypeResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +20,7 @@ import javax.inject.Inject
 class AccountSelectionViewModel @Inject constructor(private val apiRepository: ApiRepository,private val preferenceHelper: PreferenceHelper) : ViewModel() {
 
     fun saveCustomerID(customerId:String){
-        preferenceHelper.setStringValue("CustomerType",customerId)
+        preferenceHelper.setStringValue(PrefKey.CustomerType,customerId)
     }
     // Using the common generic UiState!
     private val _accountTypeData = MutableStateFlow<UiState<AccountTypeResponse>>(UiState.Idle)

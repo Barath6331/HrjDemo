@@ -31,8 +31,8 @@ class MainActivity : ComponentActivity() {
 
                 NavHost(
                     navController = navController,
-                    startDestination = Navigation.Registration.create("8825917131")
-                ){
+                    startDestination = Navigation.Splash.route
+                ) {
                     composable(Navigation.Splash.route) {
                         SplashScreen(navController)
                     }

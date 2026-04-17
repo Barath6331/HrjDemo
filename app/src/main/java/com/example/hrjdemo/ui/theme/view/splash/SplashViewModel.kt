@@ -4,16 +4,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.hrjdemo.ui.theme.utils.preferenceHelper.PrefKey
+import com.example.hrjdemo.ui.theme.utils.preferenceHelper.PreferenceHelper
+import dagger.hilt.android.lifecycle.HiltViewModel
+import jakarta.inject.Inject
 
-class SplashViewModel: ViewModel() {
+@HiltViewModel
+class SplashViewModel @Inject constructor(val preferenceHelper: PreferenceHelper) : ViewModel() {
 
-    var isLogedIn by mutableStateOf<Boolean?>(null)
 
-    init {
-        checkLogin()
-    }
-
-    private fun checkLogin(){
-        isLogedIn = true
-    }
 }

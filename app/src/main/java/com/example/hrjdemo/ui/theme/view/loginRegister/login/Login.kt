@@ -61,13 +61,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.hrjdemo.R
 import com.example.hrjdemo.ui.theme.utils.AppButton
+import com.example.hrjdemo.ui.theme.utils.Navigation
 import com.example.hrjdemo.ui.theme.utils.model.EmailData
 import com.example.hrjdemo.ui.theme.utils.model.EmailExistencyChekRequest
+import com.example.hrjdemo.ui.theme.utils.model.LoginRequest
 import com.example.hrjdemo.ui.theme.utils.model.OTPValidationRequest
 import com.example.hrjdemo.ui.theme.utils.model.SaveAndGetOTPDetailsRequest
 import com.example.hrjdemo.ui.theme.utils.network.UiState
 import com.example.hrjdemo.ui.theme.utils.otp.OtpTimer
 import com.example.hrjdemo.ui.theme.utils.otp.OtpView
+import com.example.hrjdemo.ui.theme.utils.preferenceHelper.PrefKey
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -78,8 +81,9 @@ fun Login(navController: NavController, viewModel: LoginViewModel = hiltViewMode
     val existencyState by viewModel.existency.collectAsState()
     val getOtpState by viewModel.getOtp.collectAsState()
     val validateOtpState by viewModel.validateOtp.collectAsState()
+    val loginState by viewModel.loginData.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
-    
+
     var mobileNumber by rememberSaveable { mutableStateOf("") }
     var isOtpFieldVisible by rememberSaveable { mutableStateOf(false) }
     var isTextFieldEnabled by rememberSaveable { mutableStateOf(true) }
@@ -88,14 +92,26 @@ fun Login(navController: NavController, viewModel: LoginViewModel = hiltViewMode
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(validateOtpState) {
-        if(validateOtpState is UiState.Success){
+        if (validateOtpState is UiState.Success) {
             val response = (validateOtpState as UiState.Success).data
-            if(response.returnMessage.toString().toInt() > 0){
-                snackbarHostState.showSnackbar("login Successfully")
-            }else{
+            if (response.returnMessage.toString().toInt() > 0) {
+                val request = LoginRequest(
+                    browser = "Android",
+                    loggedDeviceName = "Android",
+                    userName = mobileNumber,
+                    password = "123456",
+                    pushID = "fksoVJ5nTZyBUoWnX6ep5N:APA91bGYHKtec9FgFGC_fjor2Ujzxj7_zpRNoZKRz82IxuNxAnJaq-R-XwldWRCHjrzzjdkFEIJgnSiUEqRhTGYZnQe4ruj5oYfhYXWWzi_mmXaNRozG83w",
+                    userActionType = "GetPasswordDetails",
+                    userType = "Customer",
+                    sessionId = viewModel.preferenceHelper.getStringValue(PrefKey.CustomerType),
+                    userIp = "",
+                    loggedDeviceID = "",
+                )
+                viewModel.loginRequest(request)
+            } else {
                 snackbarHostState.showSnackbar("Invalid OTP")
             }
-        }else if (validateOtpState is UiState.Error){
+        } else if (validateOtpState is UiState.Error) {
             snackbarHostState.showSnackbar("Something Went wrong")
         }
     }
@@ -134,7 +150,28 @@ fun Login(navController: NavController, viewModel: LoginViewModel = hiltViewMode
         }
     }
 
-    fun sendOtpApi(){
+    LaunchedEffect(loginState) {
+        if (loginState is UiState.Success) {
+            val response = (loginState as UiState.Success).data
+            if (response.userList?.get(0)?.result == -1) {
+                viewModel.preferenceHelper.setStringValue(PrefKey.LoggedIn,"1")
+                viewModel.preferenceHelper.setLoginDetails(response)
+                navController.navigate(Navigation.Dashboard.route) {
+                    navController.currentDestination?.route?.let {
+                        popUpTo(it) {
+                            inclusive = true
+                        }
+                    }
+                }
+            }else{
+                snackbarHostState.showSnackbar("Login Failed")
+            }
+        } else if (loginState is UiState.Error) {
+            snackbarHostState.showSnackbar((loginState as UiState.Error).message)
+        }
+    }
+
+    fun sendOtpApi() {
         val request = SaveAndGetOTPDetailsRequest(
             MerchantUserName = "HRjohnson", // As gathered from token
             UserName = "",
@@ -151,9 +188,9 @@ fun Login(navController: NavController, viewModel: LoginViewModel = hiltViewMode
             title = { Text(text = "Information") },
             text = { Text(text = "Mobile number not exist!") },
             confirmButton = {
-                TextButton(onClick = { 
-                    mobileNumber = "" 
-                    showMobileNotExistDialog = false 
+                TextButton(onClick = {
+                    mobileNumber = ""
+                    showMobileNotExistDialog = false
                 }) {
                     Text("OK")
                 }
@@ -333,13 +370,13 @@ fun Login(navController: NavController, viewModel: LoginViewModel = hiltViewMode
                     .padding(top = 20.dp, bottom = 30.dp, start = 20.dp, end = 20.dp)
             ) {
                 if (isOtpFieldVisible) {
-                    if(otpText.length != 6){
-                        scope.launch{
+                    if (otpText.length != 6) {
+                        scope.launch {
                             snackbarHostState.showSnackbar("Please Enter Valid OTP")
                         }
-                    }else{
+                    } else {
                         val request = OTPValidationRequest(
-                            actionType ="Get Encrypted OTP",
+                            actionType = "Get Encrypted OTP",
                             mobileNo = mobileNumber,
                             oTP = otpText,
                             userName = ""

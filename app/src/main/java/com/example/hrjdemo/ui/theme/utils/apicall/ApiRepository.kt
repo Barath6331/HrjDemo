@@ -6,6 +6,8 @@ import com.example.hrjdemo.ui.theme.utils.model.LoginRequest
 import com.example.hrjdemo.ui.theme.utils.model.LoginResponse
 import com.example.hrjdemo.ui.theme.utils.model.OTPValidationRequest
 import com.example.hrjdemo.ui.theme.utils.model.OTPValidationResponse
+import com.example.hrjdemo.ui.theme.utils.model.RegistrationRequest
+import com.example.hrjdemo.ui.theme.utils.model.RegistrationResponse
 import com.example.hrjdemo.ui.theme.utils.model.SaveAndGetOTPDetailsRequest
 import com.example.hrjdemo.ui.theme.utils.model.SaveAndGetOTPDetailsResponse
 import com.example.hrjdemo.ui.theme.utils.network.NetworkResult
@@ -56,6 +58,12 @@ class ApiRepository @Inject constructor(private val apiInterface: ApiInterface) 
     suspend fun getCity(cityListRequest: CityListRequest): NetworkResult<CityListResponse> {
         return safeApiCall {
             apiInterface.getCity(cityListRequest)
+        }
+    }
+
+    suspend fun regisrationApi(registrationRequest: RegistrationRequest): NetworkResult<RegistrationResponse> {
+        return safeApiCall {
+            apiInterface.registrationApi(registrationRequest)
         }
     }
 }
