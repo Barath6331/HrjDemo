@@ -8,6 +8,8 @@ sealed class Navigation(val route: String) {
     object Login : Navigation("login")
     object Register: Navigation("register")
     object Dashboard : Navigation("dashbaord")
+    object Profile : Navigation("profile")
+    object Notifiction : Navigation("notification")
 
     object Registration : Navigation("registration/{mobile}") {
         fun create(mobile: String) = "registration/$mobile"
