@@ -17,6 +17,8 @@ import com.loyaltyworks.hrjohnson.model.CityListRequest
 import com.loyaltyworks.hrjohnson.model.CityListResponse
 import com.loyaltyworks.hrjohnson.model.StateListRequest
 import com.loyaltyworks.hrjohnson.model.StateListResponse
+import com.loyaltyworks.hrjohnson.model.UpdatedDashboardSingleApiRequest
+import com.loyaltyworks.hrjohnson.model.UpdatedDashboardSingleApiResponse
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -64,6 +66,12 @@ class ApiRepository @Inject constructor(private val apiInterface: ApiInterface) 
     suspend fun regisrationApi(registrationRequest: RegistrationRequest): NetworkResult<RegistrationResponse> {
         return safeApiCall {
             apiInterface.registrationApi(registrationRequest)
+        }
+    }
+
+    suspend fun getDashboardDetails(updatedDashboardSingleApiRequest: UpdatedDashboardSingleApiRequest): NetworkResult<UpdatedDashboardSingleApiResponse> {
+        return safeApiCall {
+            apiInterface.getDashboardDetails(updatedDashboardSingleApiRequest)
         }
     }
 }

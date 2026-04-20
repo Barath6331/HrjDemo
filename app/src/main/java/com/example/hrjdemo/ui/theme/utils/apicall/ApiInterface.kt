@@ -15,6 +15,8 @@ import com.loyaltyworks.hrjohnson.model.CityListRequest
 import com.loyaltyworks.hrjohnson.model.CityListResponse
 import com.loyaltyworks.hrjohnson.model.StateListRequest
 import com.loyaltyworks.hrjohnson.model.StateListResponse
+import com.loyaltyworks.hrjohnson.model.UpdatedDashboardSingleApiRequest
+import com.loyaltyworks.hrjohnson.model.UpdatedDashboardSingleApiResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -44,4 +46,7 @@ interface ApiInterface {
 
     @POST("SaveCustomerRegistrationDetailsMobileApp")
     suspend fun registrationApi(@Body registrationRequest: RegistrationRequest) : Response<RegistrationResponse>
+
+    @POST("GetDashBoardDetailsApi")
+    suspend fun getDashboardDetails(@Body updatedDashboardSingleApiRequest:UpdatedDashboardSingleApiRequest): Response<UpdatedDashboardSingleApiResponse>
 }

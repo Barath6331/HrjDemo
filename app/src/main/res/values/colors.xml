@@ -20,6 +20,7 @@
     <color name="white_transparent">#E6F7F7F7</color>
 
     <color name="black">#FF000000</color>
+    <color name="black_transprent">#BF000000</color>
     <color name="lightBlack">#4A4A4A</color>
     <color name="lightMediumBlack">#707070</color>
     <color name="mediumBlack">#0C0C0C</color>
