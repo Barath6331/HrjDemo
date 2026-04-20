@@ -11,7 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.hrjdemo.ui.theme.HrjDemoTheme
 import com.example.hrjdemo.ui.theme.utils.Navigation
-import com.example.hrjdemo.ui.theme.view.Dashboard
+import com.example.hrjdemo.ui.theme.view.dashboard.Dashboard
 import com.example.hrjdemo.ui.theme.view.loginRegister.login.Login
 import com.example.hrjdemo.ui.theme.view.accountSelection.AccountSelection
 import com.example.hrjdemo.ui.theme.view.loginRegister.LoginRegisterSelection
@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
                     }
 
                     composable(Navigation.Dashboard.route) {
-                        Dashboard(navController)
+                        Dashboard()
                     }
 
                     composable(Navigation.AccountSelection.route) {
