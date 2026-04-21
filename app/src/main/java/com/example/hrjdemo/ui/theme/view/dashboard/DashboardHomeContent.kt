@@ -642,7 +642,7 @@ fun DashboardHomeContent(
 
                         }
                         BottomNavItem(image = R.drawable.earning_icon, "Earning") {
-
+                            navController.navigate(Navigation.MyEarning.route)
                         }
                         BottomNavItem(image = R.drawable.help_icon, "Help") {
 

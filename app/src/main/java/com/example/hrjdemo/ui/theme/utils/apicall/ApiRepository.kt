@@ -15,6 +15,8 @@ import com.loyaltyworks.hrjohnson.model.AccountTypeRequest
 import com.loyaltyworks.hrjohnson.model.AccountTypeResponse
 import com.loyaltyworks.hrjohnson.model.CityListRequest
 import com.loyaltyworks.hrjohnson.model.CityListResponse
+import com.loyaltyworks.hrjohnson.model.MyEarningRequest
+import com.loyaltyworks.hrjohnson.model.MyEarningResponse
 import com.loyaltyworks.hrjohnson.model.StateListRequest
 import com.loyaltyworks.hrjohnson.model.StateListResponse
 import com.loyaltyworks.hrjohnson.model.UpdatedDashboardSingleApiRequest
@@ -72,6 +74,12 @@ class ApiRepository @Inject constructor(private val apiInterface: ApiInterface) 
     suspend fun getDashboardDetails(updatedDashboardSingleApiRequest: UpdatedDashboardSingleApiRequest): NetworkResult<UpdatedDashboardSingleApiResponse> {
         return safeApiCall {
             apiInterface.getDashboardDetails(updatedDashboardSingleApiRequest)
+        }
+    }
+
+    suspend fun getMyEarningList(myEarningRequest: MyEarningRequest): NetworkResult<MyEarningResponse> {
+        return safeApiCall {
+            apiInterface.myEarningList(myEarningRequest)
         }
     }
 }
