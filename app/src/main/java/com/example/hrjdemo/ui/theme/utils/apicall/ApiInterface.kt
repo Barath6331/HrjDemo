@@ -13,6 +13,8 @@ import com.loyaltyworks.hrjohnson.model.AccountTypeRequest
 import com.loyaltyworks.hrjohnson.model.AccountTypeResponse
 import com.loyaltyworks.hrjohnson.model.CityListRequest
 import com.loyaltyworks.hrjohnson.model.CityListResponse
+import com.loyaltyworks.hrjohnson.model.MyEarningRequest
+import com.loyaltyworks.hrjohnson.model.MyEarningResponse
 import com.loyaltyworks.hrjohnson.model.StateListRequest
 import com.loyaltyworks.hrjohnson.model.StateListResponse
 import com.loyaltyworks.hrjohnson.model.UpdatedDashboardSingleApiRequest
@@ -49,4 +51,7 @@ interface ApiInterface {
 
     @POST("GetDashBoardDetailsApi")
     suspend fun getDashboardDetails(@Body updatedDashboardSingleApiRequest:UpdatedDashboardSingleApiRequest): Response<UpdatedDashboardSingleApiResponse>
+
+    @POST("GetRewardTransactionDetailsMobileApp")
+    suspend fun myEarningList(@Body myEarningRequest: MyEarningRequest): Response<MyEarningResponse>
 }
