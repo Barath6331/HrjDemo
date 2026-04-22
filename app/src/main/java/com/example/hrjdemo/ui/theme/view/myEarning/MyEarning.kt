@@ -1,13 +1,11 @@
 package com.example.hrjdemo.ui.theme.view.myEarning
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,13 +13,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -33,15 +31,17 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -62,6 +62,32 @@ fun MyEarning(navController: NavController, viewmodel: MyEarningViewModel = hilt
 
         else -> emptyList()
     }
+    val scrollState = rememberLazyListState()
+    val isNextPageLoading by viewmodel.isNextPageLoading.collectAsState()
+
+    val shouldLoadMore = remember {
+        derivedStateOf {
+            val lastVisibleItem = scrollState.layoutInfo.visibleItemsInfo.lastOrNull()
+                ?: return@derivedStateOf false
+
+            lastVisibleItem.index >= scrollState.layoutInfo.totalItemsCount - 2 && !viewmodel.isEndReached && !isNextPageLoading
+        }
+    }
+
+    LaunchedEffect(shouldLoadMore.value) {
+        if (shouldLoadMore.value) {
+            viewmodel.getEarningList(
+                MyEarningRequest(
+                    actorId = viewmodel.preferenceHelper.getLoginDetails()?.userList!![0].userId!!,
+                    behaviorId = -1,
+                    jFromDate = "",
+                    jToDate = "",
+                ),
+                isInitialLoad = false
+            )
+        }
+    }
+
     LaunchedEffect(Unit) {
         viewmodel.getEarningList(
             MyEarningRequest(
@@ -69,9 +95,8 @@ fun MyEarning(navController: NavController, viewmodel: MyEarningViewModel = hilt
                 behaviorId = -1,
                 jFromDate = "",
                 jToDate = "",
-                startIndex = 1,
-                pageSize = 20
-            )
+            ),
+            isInitialLoad = true
         )
     }
 
@@ -101,8 +126,8 @@ fun MyEarning(navController: NavController, viewmodel: MyEarningViewModel = hilt
         )
     }) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues)) {
-            LazyColumn() {
-                items(myEarningListing) { item ->
+            LazyColumn(state = scrollState) {
+                itemsIndexed(myEarningListing) { index, item ->
                     Spacer(modifier = Modifier.height(5.dp))
                     Card(
                         elevation = CardDefaults.elevatedCardElevation(5.dp),
@@ -238,6 +263,19 @@ fun MyEarning(navController: NavController, viewmodel: MyEarningViewModel = hilt
                     }
 
                     Spacer(modifier = Modifier.height(5.dp))
+                }
+
+                if (isNextPageLoading) {
+                    item {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(modifier = Modifier.size(30.dp))
+                        }
+                    }
                 }
             }
 
