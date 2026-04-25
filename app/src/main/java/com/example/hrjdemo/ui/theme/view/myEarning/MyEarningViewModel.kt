@@ -56,8 +56,7 @@ class MyEarningViewModel @Inject constructor(
                     val newItems = response.data.lstRewardTransJsonDetails ?: emptyList()
                     _earningsList.addAll(newItems)
 
-                    val totalRecords = response.data.totalRecords ?: 0
-                    if (_earningsList.size >= totalRecords || newItems.isEmpty()) {
+                    if (_earningsList.size < pageSize) {
                         isEndReached = true
                     } else {
                         startIndex += 1

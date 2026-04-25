@@ -8,7 +8,11 @@ import com.squareup.moshi.JsonClass
 data class HistoryNotificationRequest(
     var ActionType: String? = null,
     var ActorId: String? = null,
-    var LoyaltyId: String? = null
+    var LoyaltyId: String? = null,
+    @Json(name = "StartIndex")
+    var startIndex: Int? = null,
+    @Json(name = "PageSize")
+    var pageSize: Int? = null
 )
 
 /*History Notification List response*/

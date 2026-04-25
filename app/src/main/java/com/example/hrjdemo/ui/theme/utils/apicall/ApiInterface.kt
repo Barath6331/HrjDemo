@@ -13,6 +13,10 @@ import com.loyaltyworks.hrjohnson.model.AccountTypeRequest
 import com.loyaltyworks.hrjohnson.model.AccountTypeResponse
 import com.loyaltyworks.hrjohnson.model.CityListRequest
 import com.loyaltyworks.hrjohnson.model.CityListResponse
+import com.loyaltyworks.hrjohnson.model.DealerLisingRequest
+import com.loyaltyworks.hrjohnson.model.DealerListingResponse
+import com.loyaltyworks.hrjohnson.model.HistoryNotificationRequest
+import com.loyaltyworks.hrjohnson.model.HistoryNotificationResponse
 import com.loyaltyworks.hrjohnson.model.MyEarningRequest
 import com.loyaltyworks.hrjohnson.model.MyEarningResponse
 import com.loyaltyworks.hrjohnson.model.StateListRequest
@@ -54,4 +58,10 @@ interface ApiInterface {
 
     @POST("GetRewardTransactionDetailsMobileApp")
     suspend fun myEarningList(@Body myEarningRequest: MyEarningRequest): Response<MyEarningResponse>
+
+    @POST("GetPushHistoryDetails")
+    suspend fun notificationList(@Body historyNotificationRequest: HistoryNotificationRequest): Response<HistoryNotificationResponse>
+
+    @POST("GetDelalerDetails")
+    suspend fun dealerLocatorList(@Body dealerLisingRequest: DealerLisingRequest) : Response<DealerListingResponse>
 }
