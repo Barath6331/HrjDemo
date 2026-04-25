@@ -60,13 +60,18 @@ fun DealrLocator(
     viewModel: DealerLocatorViewModel = hiltViewModel(),
 ) {
 
-    val dealerListingState by viewModel.dealerLocatorList.collectAsState()
-    val dealerList = when (dealerListingState) {
-        is UiState.Success -> {
-            (dealerListingState as UiState.Success).data.dealerDetails ?: emptyList()
-        }
+    val fontRegular = remember { FontFamily(Font(R.font.avenirnextltpro_regular)) }
+    val fontMedium = remember { FontFamily(Font(R.font.avenirnextltpro_medium)) }
 
-        else -> emptyList()
+    val dealerListingState by viewModel.dealerLocatorList.collectAsState()
+    val dealerList = remember(dealerListingState) {
+        when (dealerListingState) {
+            is UiState.Success -> {
+                (dealerListingState as UiState.Success).data.dealerDetails ?: emptyList()
+            }
+
+            else -> emptyList()
+        }
     }
     val isLoading by viewModel.isLoading.collectAsState()
 
@@ -109,7 +114,7 @@ fun DealrLocator(
                 Text(
                     text = "Dealer Locator",
                     style = TextStyle(
-                        fontFamily = FontFamily(Font(R.font.avenirnextltpro_medium)),
+                        fontFamily = fontMedium,
                         fontSize = 15.sp,
                         color = colorResource(R.color.black)
                     )
@@ -131,7 +136,7 @@ fun DealrLocator(
                 .fillMaxSize()
         ) {
             LazyColumn(modifier = Modifier.fillMaxSize(), state = scrollState) {
-                itemsIndexed(dealerList) { index, item ->
+                itemsIndexed(dealerList, key = { index, item -> item.name ?: index }) { index, item ->
                     Spacer(modifier = Modifier.height(5.dp))
                     Card(
                         elevation = CardDefaults.elevatedCardElevation(5.dp),
@@ -160,7 +165,7 @@ fun DealrLocator(
                                 Spacer(modifier = Modifier.width(10.dp))
                                 Text(
                                     text = item.name.toString(), style = TextStyle(
-                                        fontFamily = FontFamily(Font(R.font.avenirnextltpro_regular)),
+                                        fontFamily = fontRegular,
                                         fontSize = 14.sp,
                                         color = colorResource(R.color.black)
                                     ),
@@ -210,7 +215,7 @@ fun DealrLocator(
                                         text = "Direction",
                                         style = TextStyle(
                                             fontSize = 14.sp,
-                                            fontFamily = FontFamily(Font(R.font.avenirnextltpro_regular)),
+                                            fontFamily = fontRegular,
                                             color = colorResource(R.color.mediumRed)
                                         )
                                     )
