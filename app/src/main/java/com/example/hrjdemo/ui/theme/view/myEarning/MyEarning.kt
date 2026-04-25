@@ -67,8 +67,7 @@ fun MyEarning(navController: NavController, viewmodel: MyEarningViewModel = hilt
 
     val shouldLoadMore = remember {
         derivedStateOf {
-            val lastVisibleItem = scrollState.layoutInfo.visibleItemsInfo.lastOrNull()
-                ?: return@derivedStateOf false
+            val lastVisibleItem = scrollState.layoutInfo.visibleItemsInfo.lastOrNull() ?: return@derivedStateOf false
 
             lastVisibleItem.index >= scrollState.layoutInfo.totalItemsCount - 2 && !viewmodel.isEndReached && !isNextPageLoading
         }

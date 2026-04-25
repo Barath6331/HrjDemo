@@ -15,6 +15,10 @@ import com.loyaltyworks.hrjohnson.model.AccountTypeRequest
 import com.loyaltyworks.hrjohnson.model.AccountTypeResponse
 import com.loyaltyworks.hrjohnson.model.CityListRequest
 import com.loyaltyworks.hrjohnson.model.CityListResponse
+import com.loyaltyworks.hrjohnson.model.DealerLisingRequest
+import com.loyaltyworks.hrjohnson.model.DealerListingResponse
+import com.loyaltyworks.hrjohnson.model.HistoryNotificationRequest
+import com.loyaltyworks.hrjohnson.model.HistoryNotificationResponse
 import com.loyaltyworks.hrjohnson.model.MyEarningRequest
 import com.loyaltyworks.hrjohnson.model.MyEarningResponse
 import com.loyaltyworks.hrjohnson.model.StateListRequest
@@ -80,6 +84,18 @@ class ApiRepository @Inject constructor(private val apiInterface: ApiInterface) 
     suspend fun getMyEarningList(myEarningRequest: MyEarningRequest): NetworkResult<MyEarningResponse> {
         return safeApiCall {
             apiInterface.myEarningList(myEarningRequest)
+        }
+    }
+
+    suspend fun notificationList(historyNotificationRequest: HistoryNotificationRequest): NetworkResult<HistoryNotificationResponse>{
+        return safeApiCall {
+            apiInterface.notificationList(historyNotificationRequest)
+        }
+    }
+
+    suspend fun dealerLocatorList(dealerLisingRequest: DealerLisingRequest): NetworkResult<DealerListingResponse>{
+        return safeApiCall {
+            apiInterface.dealerLocatorList(dealerLisingRequest)
         }
     }
 }

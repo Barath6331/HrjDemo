@@ -707,7 +707,7 @@ fun DashboardHomeContent(
                                             modifier = Modifier.height(22.dp)
                                         )
                                     }
-                                    IconButton(onClick = {}) {
+                                    IconButton(onClick = { navController.navigate(Navigation.Notifiction.route) }) {
                                         Icon(
                                             painter = painterResource(R.drawable.notification_icon),
                                             contentDescription = "",
@@ -893,7 +893,7 @@ fun DashboardHomeContent(
                         }
 
                         itemDesign(image = R.drawable.find_dealer_img, "Find\n Dealer") {
-
+                            navController.navigate(Navigation.DealerLocator.route)
                         }
 
                         itemDesign(image = R.drawable.leadership_img, "Leaderboard") {
