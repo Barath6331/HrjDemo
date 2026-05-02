@@ -11,6 +11,7 @@ import com.example.hrjdemo.ui.theme.view.Profile
 import com.example.hrjdemo.ui.theme.view.dealerLocator.DealrLocator
 import com.example.hrjdemo.ui.theme.view.myEarning.MyEarning
 import com.example.hrjdemo.ui.theme.view.notification.Nofitification
+import com.example.hrjdemo.ui.theme.view.offerAndPromotions.OffersAndPromotions
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,6 +42,10 @@ fun Dashboard() {
 
         composable(Navigation.DealerLocator.route) {
             DealrLocator(navController)
+        }
+
+        composable(Navigation.OffersAndPromotions.route) {
+            OffersAndPromotions(navController)
         }
     }
 }

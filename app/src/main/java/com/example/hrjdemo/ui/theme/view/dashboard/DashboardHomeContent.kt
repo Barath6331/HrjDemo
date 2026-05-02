@@ -485,7 +485,7 @@ fun DashboardHomeContent(
                                     ) {
                                         scope.launch { drawerState.close() }
                                         if (currentRoute != Navigation.Profile.route) {
-                                            navController.navigate(Navigation.Profile.route) {
+                                            navController.navigate(Navigation.OffersAndPromotions.route) {
                                                 popUpTo(Navigation.Dashboard.route) {
                                                     inclusive = false
                                                 }

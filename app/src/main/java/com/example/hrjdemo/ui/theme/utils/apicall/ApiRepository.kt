@@ -21,6 +21,8 @@ import com.loyaltyworks.hrjohnson.model.HistoryNotificationRequest
 import com.loyaltyworks.hrjohnson.model.HistoryNotificationResponse
 import com.loyaltyworks.hrjohnson.model.MyEarningRequest
 import com.loyaltyworks.hrjohnson.model.MyEarningResponse
+import com.loyaltyworks.hrjohnson.model.PromotionListRequest
+import com.loyaltyworks.hrjohnson.model.PromotionListResponse
 import com.loyaltyworks.hrjohnson.model.StateListRequest
 import com.loyaltyworks.hrjohnson.model.StateListResponse
 import com.loyaltyworks.hrjohnson.model.UpdatedDashboardSingleApiRequest
@@ -96,6 +98,13 @@ class ApiRepository @Inject constructor(private val apiInterface: ApiInterface) 
     suspend fun dealerLocatorList(dealerLisingRequest: DealerLisingRequest): NetworkResult<DealerListingResponse>{
         return safeApiCall {
             apiInterface.dealerLocatorList(dealerLisingRequest)
+        }
+    }
+
+
+    suspend fun getOffersAndPromotion(promotionListRequest: PromotionListRequest): NetworkResult<PromotionListResponse>{
+        return  safeApiCall{
+            apiInterface.getOffersAndPromotions(promotionListRequest)
         }
     }
 }

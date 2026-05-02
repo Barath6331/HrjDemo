@@ -13,6 +13,7 @@ sealed class Navigation(val route: String) {
     object Notifiction : Navigation("notification")
     object MyEarning: Navigation("myearning")
     object DealerLocator: Navigation("dealerLocator")
+    object OffersAndPromotions: Navigation("offersAndPromotions")
 
     object Registration : Navigation("registration/{mobile}") {
         fun create(mobile: String) = "registration/$mobile"

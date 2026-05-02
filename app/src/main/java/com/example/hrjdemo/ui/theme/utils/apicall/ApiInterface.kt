@@ -19,6 +19,8 @@ import com.loyaltyworks.hrjohnson.model.HistoryNotificationRequest
 import com.loyaltyworks.hrjohnson.model.HistoryNotificationResponse
 import com.loyaltyworks.hrjohnson.model.MyEarningRequest
 import com.loyaltyworks.hrjohnson.model.MyEarningResponse
+import com.loyaltyworks.hrjohnson.model.PromotionListRequest
+import com.loyaltyworks.hrjohnson.model.PromotionListResponse
 import com.loyaltyworks.hrjohnson.model.StateListRequest
 import com.loyaltyworks.hrjohnson.model.StateListResponse
 import com.loyaltyworks.hrjohnson.model.UpdatedDashboardSingleApiRequest
@@ -62,6 +64,9 @@ interface ApiInterface {
     @POST("GetPushHistoryDetails")
     suspend fun notificationList(@Body historyNotificationRequest: HistoryNotificationRequest): Response<HistoryNotificationResponse>
 
-    @POST("GetDelalerDetails")
+    @POST("GetDealerDetails")
     suspend fun dealerLocatorList(@Body dealerLisingRequest: DealerLisingRequest) : Response<DealerListingResponse>
+
+    @POST("GetPromotionDetailsMobileApp")
+    suspend fun getOffersAndPromotions(@Body promotionListRequest: PromotionListRequest) : Response<PromotionListResponse>
 }
